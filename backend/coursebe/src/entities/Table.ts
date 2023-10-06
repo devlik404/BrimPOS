@@ -3,6 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'ty
 import { Products } from './Products';
 import { Order } from './Order';
 import { OrderHistory } from './OrderHistory';
+import { Payment } from './Payment';
 
 @Entity({name: 'table'})
 export class Table {
@@ -20,4 +21,7 @@ export class Table {
 
   @OneToMany(() => OrderHistory, (orderHistory) => orderHistory.tableId)
   orderHistory: OrderHistory[];
+
+  @OneToMany(() => Payment, (payment) => payment.table, { nullable: true }) // Tambahkan relasi ke Payment
+  payments: Payment[]
 }

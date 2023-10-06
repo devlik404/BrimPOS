@@ -1,5 +1,5 @@
 // Products.ts
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, Column } from 'typeorm';
 import { ProductFood } from './ProductFood';
 import { ProductBeverage } from './ProductBeverages';
 import { Table } from './Table';
@@ -19,4 +19,7 @@ export class Products {
 
   @OneToMany(() => Table, (table) => table.productId)
   tables: Table[];
+
+  @Column({ type: 'integer', nullable: true })
+  quantity: number;
 }
