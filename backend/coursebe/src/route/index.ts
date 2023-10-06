@@ -1,6 +1,7 @@
 import * as express from "express";
 import { Request, Response } from "express";
 import ValidationController from "../controllers/ValidationController";
+import ProductFoodController from "../controllers/ProductFoodController";
 
 
 
@@ -20,6 +21,10 @@ root.get("/table",);
 root.post("/register",ValidationController.register);
 root.post("/login",ValidationController.login);
 root.get("/check",ValidationController.check);
+
+// product_food
+root.post("/addproductfood", ProductFoodController.create);
+root.delete("/deleteproductfood/:id", ProductFoodController.delete);
 
 
 
