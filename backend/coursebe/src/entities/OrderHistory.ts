@@ -1,5 +1,4 @@
-// src/entities/OrderHistory.ts
-
+// OrderHistory.ts
 import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Table } from './Table';
 

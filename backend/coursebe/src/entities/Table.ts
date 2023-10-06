@@ -1,11 +1,10 @@
-// src/entities/Table.ts
-
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+// Table.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Products } from './Products';
 import { Order } from './Order';
 import { OrderHistory } from './OrderHistory';
 
-@Entity({ name: 'table' })
+@Entity({name: 'table'})
 export class Table {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -13,11 +12,11 @@ export class Table {
   @Column({ nullable: true })
   description: string;
 
-  @ManyToOne(() => Products, (product) => product.table, { nullable: true })
+  @ManyToOne(() => Products, (products) => products.tables, { nullable: true })
   productId: Products;
 
   @OneToMany(() => Order, (order) => order.tableId)
-  order: Order[];
+  orders: Order[];
 
   @OneToMany(() => OrderHistory, (orderHistory) => orderHistory.tableId)
   orderHistory: OrderHistory[];

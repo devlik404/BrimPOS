@@ -1,5 +1,4 @@
-// src/entities/Order.ts
-
+// Order.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Table } from './Table';
 
@@ -8,9 +7,9 @@ export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   order_date: Date;
 
-  @ManyToOne(() => Table, (table) => table.order, { nullable: true })
+  @ManyToOne(() => Table, (table) => table.orders, { nullable: true })
   tableId: Table;
 }

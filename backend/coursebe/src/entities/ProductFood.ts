@@ -1,5 +1,4 @@
 // ProductFood.ts
-
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Products } from './Products';
 
@@ -14,6 +13,6 @@ export class ProductFood {
   @Column({ type: 'float', nullable: true })
   price: number;
 
-  @OneToMany(() => Products, (product) => product.foodId) // Sesuaikan nama relasinya
-  products: Products[]; // Sesuaikan dengan nama entitas yang Anda gunakan
+  @OneToMany(() => Products, (product) => product.foodId)
+  products: Products[];
 }
