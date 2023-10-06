@@ -12,6 +12,12 @@ export class ProductBeverage {
   @Column({ type: "double precision" })
   price: number;
 
+  @Column({ type: "integer" })
+  quantity: number;
+
+  @Column({ type: "text" })
+  image: string;
+
   @ManyToOne(() => Product, (product) => product.productBeverage)
   products: Product[];
 }
