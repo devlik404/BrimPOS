@@ -57,8 +57,8 @@ class ProductService {
 
   async get(req: Request, res: Response) {
     try {
-      const productBev = await this.ProductRepository.find();
-      return res.status(200).json(productBev);
+      const product = await this.ProductRepository.find({});
+      return res.status(200).json(product);
     } catch (error) {
       return res.status(500).json("terjadi kesalahan");
     }

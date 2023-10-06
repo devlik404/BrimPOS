@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { orders } from './Order';
 
 @Entity({ name: 'payment_histories' })
@@ -15,6 +15,6 @@ export class payment_histories {
   @ManyToOne(() => orders, (order) => order.payment_histories)
   orderId: orders;
 
-  @Column({ nullable: true })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;
 }
