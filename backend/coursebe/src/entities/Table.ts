@@ -1,14 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Order } from "./Order";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { orders } from './Order';
 
-@Entity({ name: "tables" })
-export class Table {
-  @PrimaryGeneratedColumn("uuid")
+@Entity({ name: 'tables' })
+export class tables {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  description: string;
+  @Column({ nullable: true })
+  tableName: string;
 
-  @OneToMany(() => Order, (order) => order.table)
-  orders: Order[];
+  @ManyToOne(() => orders, (order) => order.tableId)
+  orderId: orders;
 }

@@ -1,5 +1,5 @@
 import { AppDataSource } from "../data-source";
-import { Users } from "../entities/Users";
+import { users } from "../entities/Users";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import * as bcrypt from "bcrypt";
@@ -7,8 +7,8 @@ import * as jwt from "jsonwebtoken";
 import { secretKey } from "../middleware/authenticate";
 
 class ValidationService {
-  private readonly validationRepository: Repository<Users> =
-    AppDataSource.getRepository(Users);
+  private readonly validationRepository: Repository<users> =
+    AppDataSource.getRepository(users);
 
     async create(req:Request,res:Response){
         try {

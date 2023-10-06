@@ -1,34 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Order } from "./Order";
-import { ProductFood } from "./ProductFood";
-import { ProductBeverage } from "./ProductBeverages";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { orders } from './Order';
 
-@Entity({ name: "products" })
-export class Product {
-  @PrimaryGeneratedColumn("uuid")
+@Entity({ name: 'products' })
+export class products {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
-  @Column({ type: "double precision" })
+  @Column({ nullable: true })
   price: number;
 
-  @Column({ type: "integer" })
-  quantity: number;
+  @Column({ nullable: true })
+  category: string;
 
-  @ManyToOne(() => Order, (order) => order.products)
-  order: Order;
+  @Column({ nullable: true })
+  image: string;
 
-  @ManyToOne(() => ProductFood, (productFood) => productFood.products, {
-    nullable: true,
-  })
-  productFood: ProductFood;
-
-  @ManyToOne(
-    () => ProductBeverage,
-    (productBeverage) => productBeverage.products,
-    { nullable: true }
-  )
-  productBeverage: ProductBeverage;
+  @OneToMany(() => orders, (order) => order.productId)
+  orders: orders[];
 }
