@@ -19,6 +19,4 @@ export class Products {
   @OneToMany(() => Table, (table) => table.productId)
   table: Table[];
 
-
-  // ...
 }
