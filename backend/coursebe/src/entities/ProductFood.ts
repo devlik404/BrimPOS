@@ -3,7 +3,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Products } from './Products';
 
-@Entity({name: 'product_food'})
+@Entity({name: 'productFood'})
 export class ProductFood {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -11,9 +11,9 @@ export class ProductFood {
   @Column({ nullable: true })
   name: string;
 
-  @Column({ type: 'float', nullable: true })
+  @Column({nullable: true })
   price: number;
 
-  @OneToMany(() => Products, (product) => product.foodId) // Sesuaikan nama relasinya
-  products: Products[]; // Sesuaikan dengan nama entitas yang Anda gunakan
+  @OneToMany(() => Products, (product) => product.foodId) 
+  products: Products[]; 
 }
