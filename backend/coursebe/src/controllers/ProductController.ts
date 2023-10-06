@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import ProductBevService from "../services/ProductBevService";
+import ProductBevService from "../services/ProductService";
 
-class ProductBevController {
+class ProductController {
   create(req: Request, res: Response) {
     ProductBevService.create(req, res);
   }
@@ -19,4 +19,4 @@ class ProductBevController {
   }
 }
 
-export default new ProductBevController();
+export default new ProductController();

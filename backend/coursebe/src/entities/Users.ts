@@ -1,20 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Order } from "./Order";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity({ name: "users" })
-export class Users {
-  @PrimaryGeneratedColumn("uuid")
+@Entity({ name: 'users' })
+export class users {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  email: string;
-
-  @Column()
+  @Column({ nullable: true })
   username: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
-  @OneToMany(() => Order, (order) => order.user)
-  orders: Order[];
+  @Column({ nullable: true })
+  email: string;
 }

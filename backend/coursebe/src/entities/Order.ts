@@ -1,41 +1,22 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
-  ManyToOne,
-} from "typeorm";
-import { Product } from "./Products";
-import { Payment } from "./Payment";
-import { OrderHistory } from "./OrderHistory";
-import { Table } from "./Table";
-import { Users } from "./Users"; // Import entitas User
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { products } from './Products';
+import { tables } from './Table';
+import { payment_histories } from './PaymentHistory';
 
-@Entity({ name: "orders" })
-export class Order {
-  @PrimaryGeneratedColumn("uuid")
+@Entity({ name: 'orders' })
+export class orders {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: "timestamp", nullable: true })
-  order_date: Date;
+  @Column({ nullable: true })
+  total: number;
 
-  @OneToMany(() => Product, (product) => product.order, { cascade: true })
-  products: Product[];
+  @ManyToOne(() => products, (product) => product.orders)
+  productId: products;
 
-  @OneToOne(() => Payment, (payment) => payment.order, { cascade: true })
-  @JoinColumn()
-  payment: Payment;
+  @ManyToOne(() => tables, (table) => table.orderId)
+  tableId: tables;
 
-  @OneToMany(() => OrderHistory, (orderHistory) => orderHistory.order, {
-    cascade: true,
-  })
-  orderHistory: OrderHistory[];
-
-  @ManyToOne(() => Table, (table) => table.orders)
-  table: Table;
-
-  @ManyToOne(() => Users, (user) => user.orders) // Tambahkan relasi ke User
-  user: Users;
+  @OneToMany(() => payment_histories, (payment_history) => payment_history.orderId)
+  payment_histories: payment_histories[];
 }
