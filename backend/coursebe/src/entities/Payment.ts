@@ -1,15 +1,21 @@
-// Payment.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Table } from './Table';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
+import { Order } from "./Order";
 
-@Entity()
+@Entity({ name: "payments" })
 export class Payment {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: "double precision" })
   amount: number;
 
-  @ManyToOne(() => Table, (table) => table.payments, { nullable: true })
-  table: Table;
+  @OneToOne(() => Order, (order) => order.payment)
+  @JoinColumn()
+  order: Order;
 }
