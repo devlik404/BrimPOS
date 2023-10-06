@@ -1,19 +1,17 @@
-// src/entities/ProductBeverage.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Product } from "./Products";
 
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Products } from './Products';
-
-@Entity({name: 'productBeverage'})
+@Entity({ name: "product_beverages" })
 export class ProductBeverage {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ nullable: true })
+  @Column()
   name: string;
 
-  @Column({ type: 'float', nullable: true })
+  @Column({ type: "double precision" })
   price: number;
 
-  @OneToMany(() => Products, (product) => product.beverageId)
-  products: Products[];
+  @ManyToOne(() => Product, (product) => product.productBeverage)
+  products: Product[];
 }

@@ -1,13 +1,17 @@
-// src/entities/OrderHistory.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Order } from "./Order";
 
-import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Table } from './Table';
-
-@Entity({name: 'orderHistory'})
+@Entity({ name: "order_histories" })
 export class OrderHistory {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @ManyToOne(() => Table, (table) => table.orderHistory, { nullable: true })
-  tableId: Table;
+  @Column({ type: "timestamp" })
+  timestamp: Date;
+
+  @Column()
+  action: string;
+
+  @ManyToOne(() => Order, (order) => order.orderHistory)
+  order: Order;
 }

@@ -1,22 +1,34 @@
-// Products.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Order } from "./Order";
+import { ProductFood } from "./ProductFood";
+import { ProductBeverage } from "./ProductBeverages";
 
-import { Entity, PrimaryGeneratedColumn, OneToOne, OneToMany } from 'typeorm';
-import { ProductFood } from './ProductFood';
-import { ProductBeverage } from './ProductBeverages';
-import { Table } from './Table';
-
-@Entity({name: 'product'})
-export class Products {
-  @PrimaryGeneratedColumn('uuid')
+@Entity({ name: "products" })
+export class Product {
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @OneToOne(() => ProductFood, (productFood) => productFood.products, { nullable: true })
-  foodId: ProductFood;
+  @Column()
+  name: string;
 
-  @OneToOne(() => ProductBeverage, (productBeverage) => productBeverage.products, { nullable: true })
-  beverageId: ProductBeverage;
+  @Column({ type: "double precision" })
+  price: number;
 
-  @OneToMany(() => Table, (table) => table.productId)
-  table: Table[];
+  @Column({ type: "integer" })
+  quantity: number;
 
+  @ManyToOne(() => Order, (order) => order.products)
+  order: Order;
+
+  @ManyToOne(() => ProductFood, (productFood) => productFood.products, {
+    nullable: true,
+  })
+  productFood: ProductFood;
+
+  @ManyToOne(
+    () => ProductBeverage,
+    (productBeverage) => productBeverage.products,
+    { nullable: true }
+  )
+  productBeverage: ProductBeverage;
 }
