@@ -1,22 +1,22 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { ProductFood } from "../entities/ProductFood";
+import { ProductBeverage } from "../entities/ProductBeverages";
 import { Request, Response } from "express";
 
-class ProductFoodService {
-  private readonly ProductFoodRepository: Repository<ProductFood> =
-    AppDataSource.getRepository(ProductFood);
+class ProductBevService {
+  private readonly ProductBevRepository: Repository<ProductBeverage> =
+    AppDataSource.getRepository(ProductBeverage);
 
   async create(req: Request, res: Response) {
     try {
       const data = req.body;
-      const productFood = this.ProductFoodRepository.create({
+      const productBev = this.ProductBevRepository.create({
           name: data.name,
           price: data.price,
           quantity: data.quantity,
           image: data.image,
       });
-      this.ProductFoodRepository.save(productFood);
+      this.ProductBevRepository.save(productBev);
       return res.status(200).json("data berhasil di tambahkan");
     } catch (error) {
       return res.status(500).json("terjadi kesalahan");
@@ -25,12 +25,12 @@ class ProductFoodService {
 
   async delete(req: Request, res: Response) {
     try {
-      const productFood = await this.ProductFoodRepository.findOne({
+      const productBev = await this.ProductBevRepository.findOne({
         where: {
           id: req.params.id,
         },
       });
-      await this.ProductFoodRepository.delete(productFood);
+      await this.ProductBevRepository.delete(productBev);
       return res.status(200).json("data berhasil di hapus");
     } catch (error) {
       return res.status(500).json("terjadi kesalahan");
@@ -39,16 +39,16 @@ class ProductFoodService {
 
   async patch(req: Request, res: Response) {
     try {
-      const productFood = await this.ProductFoodRepository.findOne({
+      const productBev = await this.ProductBevRepository.findOne({
         where: {
           id: req.params.id,
         },
       });
-      productFood.name = req.body.name;
-      productFood.price = req.body.price;
-      productFood.quantity = req.body.quantity;
-      productFood.image = req.body.image;
-      await this.ProductFoodRepository.save(productFood);
+      productBev.name = req.body.name;
+      productBev.price = req.body.price;
+      productBev.quantity = req.body.quantity;
+      productBev.image = req.body.image;
+      await this.ProductBevRepository.save(productBev);
       return res.status(200).json("data berhasil di ubah");
     } catch (error) {
       return res.status(500).json("terjadi kesalahan");
@@ -57,12 +57,12 @@ class ProductFoodService {
 
   async get(req: Request, res: Response) {
     try {
-      const productFood = await this.ProductFoodRepository.find();
-      return res.status(200).json(productFood);
+      const productBev = await this.ProductBevRepository.find();
+      return res.status(200).json(productBev);
     } catch (error) {
       return res.status(500).json("terjadi kesalahan");
     }
   }
 }
 
-export default new ProductFoodService();
+export default new ProductBevService();
