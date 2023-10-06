@@ -6,7 +6,7 @@ export class ProductFood {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column({nullable:true})
   name: string;
 
   @Column({ type: "double precision" })

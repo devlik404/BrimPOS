@@ -4,7 +4,8 @@ import ValidationController from "../controllers/ValidationController";
 import authenticate from "../middleware/authenticate";
 import ProductFoodController from "../controllers/ProductFoodController";
 
-
+import { upload } from "../middleware/uploadFile";
+import PaymentController from "../controllers/PaymentController";
 
 
 
@@ -22,10 +23,12 @@ root.post("/login",ValidationController.login);
 root.get("/check",authenticate,ValidationController.check);
 
 // product_food
-root.post("/addproductfood", ProductFoodController.create);
+root.post("/addproductfood",upload("image"),ProductFoodController.create);
 root.delete("/deleteproductfood/:id", ProductFoodController.delete);
 
 
 
+//payment
+root.post("/history",PaymentController.create);
 
 export default root;
