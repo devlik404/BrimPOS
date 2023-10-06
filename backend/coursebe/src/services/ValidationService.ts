@@ -14,8 +14,8 @@ class ValidationService {
             const data = req.body;
             const hash = await bcrypt.hash(data.password, 10)
             const validation = this.validationRepository.create({
-                username:data.fullname,
                 email:data.email,
+                username:data.username,
                 password:hash
             });
             
@@ -35,7 +35,7 @@ class ValidationService {
          where:{
             email:data.email
          },
-         select:["id","username","email","password"]
+         select:["id","email","password"]
         })
         if (!validation) {
             return res.status(401).json("User not found");
