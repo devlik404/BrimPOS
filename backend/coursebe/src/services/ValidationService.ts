@@ -35,7 +35,7 @@ class ValidationService {
          where:{
             email:data.email
          },
-         select:["id","nickname","fullname","email","password"]
+         select:["id","username","email","password"]
         })
         if (!validation) {
             return res.status(401).json("User not found");
@@ -47,7 +47,7 @@ class ValidationService {
         }
         const user = ({
             id:validation.id,
-            username:validation.fullname,
+            username:validation.username,
             email:validation.email,
 
         })
@@ -70,7 +70,7 @@ class ValidationService {
                 where:{
                     id:loginSession.id
                 },
-                select:["id","nickname","fullname","email","password"]
+                select:["id","username","email","password"]
             })
         
                return res.status(200).json({
