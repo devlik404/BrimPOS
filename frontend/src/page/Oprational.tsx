@@ -1,6 +1,7 @@
 
 import { FaBagShopping, FaCashRegister, FaWallet } from "react-icons/fa6";
 import { IoFastFood } from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
 import { MdOutlineTableBar, MdOutlineTableRestaurant, MdViewCompactAlt } from "react-icons/md";
 import { BiBookAdd } from "react-icons/bi";
 import {
@@ -77,16 +78,32 @@ export default function Operational() {
 
   const [table,setTable] = useState('')
   
-  const selectedChange = (table: SetStateAction<string>)=>{
-    if(table==="1"){
-      setTableAcive1(true)
-      return setTable(table)
-    }else if(table==="2"){
-      setTableAcive2(true)
-      return setTable(table)
-    }
+  // const selectedChange = (table: SetStateAction<string>)=>{
+  //   if(table==="1"){
+  //     setTableAcive1(true)
+  //     return setTable(table)
+  //   }else if(table==="2"){
+  //     setTableAcive2(true)
+  //     return setTable(table)
+  //   }
     
-  }
+  // }
+  const [selectedProductName, setSelectedProductName] = useState("");
+  const [selectedProductPrice, setSelectedProductPrice] = useState("");
+  const selectedChange = (table: SetStateAction<string>, productName: string, price: string) => {
+    if (table === "1") {
+      setTableAcive1(true);
+      setTable(table);
+      setSelectedProductName(productName);
+      setSelectedProductPrice(price);
+    } else if (table === "2") {
+      setTableAcive2(true);
+      setTable(table);
+      setSelectedProductName(productName);
+      setSelectedProductPrice(price);
+    }
+    // Tambahkan kondisi serupa untuk tabel lain jika diperlukan
+  };
   const ifNotFound = (
     <Box marginTop={"70px"}>
       <Center>
@@ -129,7 +146,7 @@ export default function Operational() {
                     Dashboard
                   </Link>
                 </ListItem>
-                <ListItem>
+                <ListItem textShadow={"lg"} >
                   <ListIcon as={FaCashRegister} color="#6C3428" />
                   <Link to={"/operational"}>
                     operational
@@ -147,8 +164,8 @@ export default function Operational() {
                     payment
                   </Link>
                 </ListItem>
-                <ListItem>
-                  <ListIcon as={FaWallet} color="#6C3428" />
+                <ListItem position={"absolute"} bottom={10} >
+                  <ListIcon as={CiLogout} color="#6C3428" />
                   <Link to={"/login"}>
                     Log out
                   </Link>
@@ -332,7 +349,7 @@ export default function Operational() {
                                   borderRadius={"md"}
                                   boxShadow={"md"}
                                   key={item.id}
-                                  onClick={ ()=> setName(`es teh anget`)}
+                                  onClick={() => selectedChange("1", item.nameProduct, item.priceProduct)}
                                   cursor={"pointer"}
                                 >
                                   <Center>
@@ -474,7 +491,7 @@ export default function Operational() {
                     </Tabs>
                   </TabPanel>
                   <TabPanel>
-                    <SimpleGrid columns={4} spacing={10}>
+                    <SimpleGrid columns={4} cursor={"pointer"} spacing={10}>
 
                       { tableActive1 ? (
                         <Button
@@ -483,6 +500,7 @@ export default function Operational() {
                         fontSize={"30px"}
                         bg={"gray.200"}
                         borderColor={"green"}
+
                       >
                         1 <MdOutlineTableRestaurant size={"full"} />{" "}
                       </Button>
@@ -490,7 +508,7 @@ export default function Operational() {
                         <Button
                         height="160px"
                         w={"160px"}
-                        onClick={()=>selectedChange("1")}
+                        // onClick={()=>selectedChange("1")}
                         fontSize={"30px"}
                         bg={"transparent"}
                         
@@ -514,7 +532,7 @@ export default function Operational() {
                         <Button
                         height="160px"
                         w={"160px"}
-                        onClick={()=>selectedChange("2")}
+                        // onClick={()=>selectedChange("2")}
                         fontSize={"30px"}
                         bg={"transparent"}
                         
@@ -578,21 +596,21 @@ export default function Operational() {
           </Box>
           <Box w={"20%"} h={"100vh"} boxShadow={"md"}>
             <Heading textAlign={"center"} mt={5}>
-              Table
+              Detail order
             </Heading>
             <Center>
               <Box w={"95%"} mt={5} lineHeight={"30px"}>
-                <Text>Table: {table} </Text>
-                <Text>Product name: {name} </Text>
-                <Text>Price:</Text>
-                <Text>Quantity:</Text>
+              <Text>Meja: {table} </Text>
+              <Text>Nama Produk: {selectedProductName} </Text>
+              <Text>Harga: {selectedProductPrice} </Text>
               </Box>
             </Center>
             <Center>
               <Box w={"95%"} mt={5} h={"100vh"}>
-                <Heading position={"absolute"} bottom={0}>
+                <Button position={"absolute"} bg={"#6C3428"} bottom={10} w={"10vw"} _hover={{bg:"#6C3428",color:"white"}} color={"white"}  >bayar</Button>
+                <Heading position={"absolute"} bottom={24} >
                   {" "}
-                  Total:{" "}
+                  Total:{selectedProductPrice}
                 </Heading>
               </Box>
             </Center>
