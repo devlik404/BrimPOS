@@ -9,15 +9,17 @@ import '@fontsource-variable/plus-jakarta-sans';
 import { Provider } from 'react-redux'
 import { store } from './app/store.ts'
 ReactDOM.createRoot(document.getElementById('root')!).render(
+  <ChakraProvider>
   <React.StrictMode>
     <Provider store={store}>
-    <ChakraProvider>
+    
       <CSSReset />
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ChakraProvider>
+   
     </Provider>
 
-  </React.StrictMode>,
+  </React.StrictMode>
+   </ChakraProvider>
 )
