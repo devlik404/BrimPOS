@@ -84,7 +84,7 @@ const IndexProduc = () => {
                     />
                     <Box mt={'20px'} display={'flex'} justifyContent={'right'} paddingRight={'20px'}>
                         <Box>
-                            <Button onClick={onOpen}>Open Modal</Button>
+                            <Button onClick={onOpen}> + Add Products</Button>
                             <Modal
                                 initialFocusRef={initialRef}
                                 finalFocusRef={finalRef}

@@ -22,7 +22,6 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  HStack,
   InputLeftElement,
   Image,
 } from "@chakra-ui/react";
@@ -32,6 +31,7 @@ import dummyBeverage from "../utils/beverageDummy.json";
 import dummyFoods from "../utils/foodsDummy.json";
 
 import { SetStateAction, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Operational() {
   const [searchQueryAll, setSearchQueryAll] = useState("");
@@ -46,44 +46,43 @@ export default function Operational() {
   const handleSearchInputChangeAll = (event: any) => {
     const query = event.target.value;
     setSearchQueryAll(query);
-
     const filteredAll = [...dummyBeverage, ...dummyFoods].filter((item) =>
       item.nameProduct?.toLowerCase().includes(query.toLowerCase())
     );
-
     setFilteredProductsAll(filteredAll);
   };
-
   const handleSearchInputChange = (event: any) => {
     const query = event.target.value;
     setSearchQuery(query);
-
     const filtered = dummyBeverage.filter((item) =>
       item.nameProduct?.toLowerCase().includes(query.toLowerCase())
     );
-
     setFilteredProducts(filtered);
   };
-
   const handleSearchInputChangeFoods = (event: any) => {
     const query = event.target.value;
     setSearchQueryFoods(query);
-
     const filtered = dummyFoods.filter((item) =>
       item.nameProduct?.toLowerCase().includes(query.toLowerCase())
     );
-
     setFilteredProductsFoods(filtered);
   };
   const [name,setName] = useState('')
 
 
-  const [tableActive,setTableAcive] = useState(false)
+  const [tableActive1,setTableAcive1] = useState(false)
+  const [tableActive2,setTableAcive2] = useState(false)
+  const [tableActive3,setTableAcive3] = useState(false)
+  const [tableActive4,setTableAcive4] = useState(false)
+
   const [table,setTable] = useState('')
   
   const selectedChange = (table: SetStateAction<string>)=>{
-    if(table==="1"||table==="2"||table==="3"||table==="4"){
-      setTableAcive(true)
+    if(table==="1"){
+      setTableAcive1(true)
+      return setTable(table)
+    }else if(table==="2"){
+      setTableAcive2(true)
       return setTable(table)
     }
     
@@ -126,19 +125,33 @@ export default function Operational() {
               <List spacing={8} fontSize={"24px"}>
                 <ListItem>
                   <ListIcon as={FaBagShopping} color="#6C3428" />
-                  Dashboard
+                  <Link to={"/dashboard"}>
+                    Dashboard
+                  </Link>
                 </ListItem>
-                <ListItem color={"#6C3428"}>
+                <ListItem>
                   <ListIcon as={FaCashRegister} color="#6C3428" />
-                  Operational
+                  <Link to={"/operational"}>
+                    operational
+                  </Link>
                 </ListItem>
                 <ListItem>
                   <ListIcon as={IoFastFood} color="#6C3428" />
-                  Product
+                  <Link to={"/product"}>
+                    product
+                  </Link>
                 </ListItem>
                 <ListItem>
                   <ListIcon as={FaWallet} color="#6C3428" />
-                  Payment
+                  <Link to={"/payment"}>
+                    payment
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaWallet} color="#6C3428" />
+                  <Link to={"/login"}>
+                    Log out
+                  </Link>
                 </ListItem>
               </List>
             </Box>
@@ -463,7 +476,7 @@ export default function Operational() {
                   <TabPanel>
                     <SimpleGrid columns={4} spacing={10}>
 
-                      { tableActive ? (
+                      { tableActive1 ? (
                         <Button
                         height="160px"
                         w={"160px"}
@@ -487,7 +500,7 @@ export default function Operational() {
                       )
                       }
                     
-                      { tableActive ? (
+                      { tableActive2 ? (
                         <Button
                         height="160px"
                         w={"160px"}
@@ -510,7 +523,7 @@ export default function Operational() {
                       </Button>
                       )
                       }
-                      { tableActive ? (
+                      {/* { tableActive ? (
                         <Button
                         height="160px"
                         w={"160px"}
@@ -555,7 +568,7 @@ export default function Operational() {
                         4 <MdOutlineTableRestaurant size={"full"} />{" "}
                       </Button>
                       )
-                      }
+                      } */}
                       
                     </SimpleGrid>
                   </TabPanel>

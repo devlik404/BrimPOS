@@ -24,7 +24,7 @@ export default function Register() {
   return (
     <>
       <Box
-        w={"100%"}
+        w={"100vw"}
         h={"100vh"}
         bgImage={
           "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2528&q=80"
@@ -81,7 +81,7 @@ export default function Register() {
                     </FormControl>
                     <FormControl>
                       <FormLabel color={"white"}>Email</FormLabel>
-                      <Input color={"white"} type='email' onChange={changeHandlerValidate} name="email"/>
+                      <Input color={"white"} placeholder="email" type='email' onChange={changeHandlerValidate} name="email"/>
                     </FormControl>
                     <FormControl>
                       <FormLabel color={"white"}>Password</FormLabel>
