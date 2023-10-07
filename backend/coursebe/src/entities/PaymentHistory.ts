@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
 import { orders } from './Order';
 
 @Entity({ name: 'payment_histories' })
-export class payment_histories {
+export class PaymentHistories {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
