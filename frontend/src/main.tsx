@@ -8,11 +8,23 @@ import { CSSReset, ChakraProvider } from '@chakra-ui/react'
 import '@fontsource-variable/plus-jakarta-sans';
 import { Provider } from 'react-redux'
 import { store } from './app/store.ts'
+
+// const theme = extendTheme({
+//   styles: {
+//     global: {
+//       '*:focus': {
+//         outline: 'none',
+//         // Atau atur properties lain sesuai kebutuhan Anda
+//       },
+//     },
+//   },
+// });
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ChakraProvider>
   <React.StrictMode>
     <Provider store={store}>
-    
+    <ChakraProvider >
       <CSSReset />
       <BrowserRouter>
         <App />

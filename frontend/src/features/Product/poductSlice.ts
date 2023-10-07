@@ -126,6 +126,16 @@ export const fetchProduct = createAsyncThunk("product/fetchUsers", async(newProd
     }
 })
 
+export const editProduct = createAsyncThunk("product/editProduct", async ({ id, newProduct }: { id: number, newProduct: Product }) => {
+  try {
+    const res = await axios.put(`http://localhost:8000/product/${id}`, newProduct);
+    console.table('editProduct', res.data);
+    return res.data;
+  } catch (error) {
+   console.log('error bro ',error)
+  }
+});
+
 export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id : number) => {
     try {
       const res = await axios.delete(`http://localhost:8000/product/${id}`)
@@ -177,6 +187,18 @@ const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(deleteProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to fetch products.";
+      })
+      .addCase(editProduct.pending , (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editProduct.fulfilled, (state,action : PayloadAction<Product[]>) => {
+        state.loading = false;
+        state.products = action.payload;
+      })
+      .addCase(editProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch products.";
       });

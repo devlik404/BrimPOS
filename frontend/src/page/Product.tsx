@@ -13,7 +13,7 @@ const Product = () => {
           <Box
             left={'300px'}
             // display={'flex'}
-            width={"700px"}
+            width={"800px"}
             overflow='hidden' // Menyembunyikan scrollbar secara horizontal dan vertikal
           >
             <Box color={'black'} flex={'1'}></Box>
