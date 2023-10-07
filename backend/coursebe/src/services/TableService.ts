@@ -10,7 +10,9 @@ class TableService {
         try {
             const tables = await this.TableRepository.find({
                 relations: {
-                    orders: true,
+                    orders: {
+                        products: true,
+                    },
                 },
             });
             return res.status(200).json(tables);
