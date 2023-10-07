@@ -3,7 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToMany,
 } from "typeorm";
 import { Products } from "./Products";
 import { Tables } from "./Table";
@@ -17,8 +16,11 @@ export class orders {
   @Column({ nullable: true })
   total: number;
 
-  @OneToMany(() => Products, (products) => products.orders)
-  products: Products[];
+  @Column({ nullable: true })
+  status: string;
+
+  @ManyToOne(() => Products, (products) => products.orders)
+  products: Products;
 
   @ManyToOne(() => Tables, (table) => table.orders)
   table: Tables;

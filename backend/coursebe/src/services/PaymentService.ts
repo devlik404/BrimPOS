@@ -1,12 +1,12 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
-import { payment_histories } from "../entities/PaymentHistory";
+import { PaymentHistories } from "../entities/PaymentHistory";
 
 require("dotenv").config();
 class PaymentService {
-  private readonly PaymentHistoryRepository: Repository<payment_histories> =
-    AppDataSource.getRepository(payment_histories);
+  private readonly PaymentHistoryRepository: Repository<PaymentHistories> =
+    AppDataSource.getRepository(PaymentHistories);
 
   async create(req: Request, res: Response) {
       try {

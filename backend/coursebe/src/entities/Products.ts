@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { orders } from './Order';
 
 @Entity({ name: 'products' })
@@ -17,7 +17,8 @@ export class Products {
 
   @Column({ nullable: true })
   image: string;
- 
-  @ManyToOne(() => orders, (order) => order.products)
-  orders: orders;
+  
+  @OneToMany(() => orders, (order) => order.products)
+  orders: orders[];
+
 }
