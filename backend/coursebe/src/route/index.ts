@@ -6,6 +6,7 @@ import OrderController from "../controllers/OrderController";
 import authenticate from "../middleware/authenticate";
 import PaymentController from "../controllers/PaymentController";
 import { upload } from "../middleware/uploadFile";
+import TableController from "../controllers/TableController";
 
 const root = express.Router();
 root.get("/", (req: Request, res: Response) => {
@@ -24,10 +25,13 @@ root.delete("/deleteproduct/:id", ProductController.delete);
 root.patch("/updateproduct/:id", ProductController.patch);
 
 // order
-root.get("/order", OrderController.find);
+root.get("/order/:id", OrderController.find);
 root.post("/addorder", OrderController.create);
 // root.delete("/deleteorder/:id", OrderController.delete);
-// root.patch("/updateorder/:id", OrderController.patch);
+root.patch("/updateorder/:id", OrderController.patch);
+
+// table
+root.get("/table", TableController.find);
 
 //payment
 root.post("/history",PaymentController.create);

@@ -9,7 +9,7 @@ import { Tables } from "./Table";
 import { PaymentHistories } from "./PaymentHistory";
 
 @Entity({ name: "orders" })
-export class orders {
+export class Orders {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
