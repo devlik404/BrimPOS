@@ -10,22 +10,23 @@ class ValidationService {
   private readonly validationRepository: Repository<users> =
     AppDataSource.getRepository(users);
 
-  async create(req: Request, res: Response) {
-    try {
-      const data = req.body;
-      const hash = await bcrypt.hash(data.password, 10);
-      const validation = this.validationRepository.create({
-        username: data.fullname,
-        email: data.email,
-        password: hash,
-      });
+    async create(req:Request,res:Response){
+        try {
+            const data = req.body;
+            const hash = await bcrypt.hash(data.password, 10)
+            const validation = this.validationRepository.create({
+                email:data.email,
+                username:data.username,
+                password:hash
+            });
+            
+          this.validationRepository.save(validation);
+               return res.status(200).json("data berhasil di tambahkan");
+        } catch (error) {
+            return res.status(500).json("terjadi kesalahan");
+        }
 
-      this.validationRepository.save(validation);
-      return res.status(200).json("data berhasil di tambahkan");
-    } catch (error) {
-      return res.status(500).json("terjadi kesalahan");
     }
-  }
 
   async login(req: Request, res: Response) {
     try {

@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { products } from './Products';
-import { tables } from './Table';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, Table, OneToMany } from 'typeorm';
+import { Products } from './Products';
+import { Tables} from './Table';
 import { payment_histories } from './PaymentHistory';
 
 @Entity({ name: 'orders' })
@@ -11,12 +11,13 @@ export class orders {
   @Column({ nullable: true })
   total: number;
 
-  @ManyToOne(() => products, (product) => product.orders)
-  productId: products;
+@OneToMany(() => Products, (products) => products.orders)
+products: Products[];
 
-  @ManyToOne(() => tables, (table) => table.orderId)
-  tableId: tables;
+@ManyToOne(() => Tables, (table) => table.orders)
+table: Tables;
 
-  @OneToMany(() => payment_histories, (payment_history) => payment_history.orderId)
-  payment_histories: payment_histories[];
+@ManyToOne(() => payment_histories, (paymentHistory) => paymentHistory.orders)
+paymentHistory: payment_histories;
+
 }

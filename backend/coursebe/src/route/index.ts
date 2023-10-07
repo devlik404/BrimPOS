@@ -3,6 +3,9 @@ import { Request, Response } from "express";
 import ValidationController from "../controllers/ValidationController";
 import ProductController from "../controllers/ProductController";
 import OrderController from "../controllers/OrderController";
+import authenticate from "../middleware/authenticate";
+import PaymentController from "../controllers/PaymentController";
+import { upload } from "../middleware/uploadFile";
 
 const root = express.Router();
 root.get("/", (req: Request, res: Response) => {
@@ -10,13 +13,13 @@ root.get("/", (req: Request, res: Response) => {
 });
 
 // auth
-root.post("/register", ValidationController.register);
-root.post("/login", ValidationController.login);
-root.get("/check", ValidationController.check);
+root.post("/register",ValidationController.register);
+root.post("/login",ValidationController.login);
+root.get("/check",authenticate,ValidationController.check);
 
 // product
 root.get("/product", ProductController.get);
-root.post("/addproduct", ProductController.create);
+root.post("/product",upload("image"),ProductController.create);
 root.delete("/deleteproduct/:id", ProductController.delete);
 root.patch("/updateproduct/:id", ProductController.patch);
 
@@ -25,5 +28,8 @@ root.get("/order", OrderController.find);
 root.post("/addorder", OrderController.create);
 // root.delete("/deleteorder/:id", OrderController.delete);
 // root.patch("/updateorder/:id", OrderController.patch);
+
+//payment
+root.post("/history",PaymentController.create);
 
 export default root;

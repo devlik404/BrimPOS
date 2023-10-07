@@ -7,13 +7,14 @@ class OrderService {
   private readonly OrderRepository: Repository<orders> =
     AppDataSource.getRepository(orders);
   async create(req: Request, res: Response) {
+    console.log("reqBody", req.body);
     try {
       const data = req.body;
       const orders = this.OrderRepository.create({
         total: data.total,
-        productId: data.productId,
-        tableId: data.tableId,
-        payment_histories: data.payment_histories,
+        products: data.products,
+        table: data.table,
+        paymentHistory: data.payment_histories,
       });
 
       this.OrderRepository.save(orders);
@@ -27,9 +28,9 @@ class OrderService {
     try {
       const orders = await this.OrderRepository.find({
         relations: {
-          productId: true,
-          tableId: true,
-          payment_histories: true,
+          products: true,
+          table: true,
+          paymentHistory: true,
         },
       });
       return res.status(200).json(orders);
