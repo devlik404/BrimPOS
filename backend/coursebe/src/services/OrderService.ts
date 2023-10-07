@@ -2,23 +2,36 @@ import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { Orders } from "../entities/Order";
 import { AppDataSource } from "../data-source";
+import { PaymentHistories } from "../entities/PaymentHistory";
 
 class OrderService {
+  private readonly PaymentHistoriesRepository: Repository<PaymentHistories> =
+    AppDataSource.getRepository(PaymentHistories);
   private readonly OrderRepository: Repository<Orders> =
     AppDataSource.getRepository(Orders);
+
   async create(req: Request, res: Response) {
-    console.log("reqBody", req.body);
     try {
       const data = req.body;
+      const paymentHistory = this.PaymentHistoriesRepository.create({
+        status: data.status,
+        total: data.total,
+      });
+      await this.PaymentHistoriesRepository.save(paymentHistory);
+
+      const paymentId = paymentHistory.id;
+
       const orders = this.OrderRepository.create({
         total: data.total,
-        products: data.products,
         status: data.status,
+        products: data.products,
         table: data.table,
-        paymentHistory: data.payment_histories,
+        paymentHistory: {
+          id: paymentId,
+        },
       });
 
-      this.OrderRepository.save(orders);
+      await this.OrderRepository.save(orders);
       return res.status(200).json("data berhasil di tambahkan");
     } catch (error) {
       return res.status(500).json("terjadi kesalahan");
@@ -36,7 +49,8 @@ class OrderService {
         relations: {
           products: true,
           table: true,
-        }
+          paymentHistory: true,
+        },
       });
       return res.status(200).json(orders);
     } catch (error) {

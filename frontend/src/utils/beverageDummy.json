@@ -1,0 +1,29 @@
+[
+  
+    {
+      "id":1,
+      "imageProduct":"https://images.unsplash.com/photo-1504630083234-14187a9df0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+      "nameProduct":"coffe",
+      "priceProduct":"14k"
+    },
+    {
+      "id":2,
+      "imageProduct":"https://images.unsplash.com/photo-1504630083234-14187a9df0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+      "nameProduct":"Es teh anget",
+      "priceProduct":"18k"
+    },
+    {
+      "id":4,
+      "imageProduct":"https://images.unsplash.com/photo-1504630083234-14187a9df0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+      "nameProduct":"seprit",
+      "priceProduct":"14k"
+    },
+    {
+      "id":5,
+      "imageProduct":"https://images.unsplash.com/photo-1504630083234-14187a9df0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+      "nameProduct":"kuka kola",
+      "priceProduct":"12k"
+    }
+
+
+]
