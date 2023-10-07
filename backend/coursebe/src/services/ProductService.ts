@@ -63,15 +63,26 @@ class ProductService {
 
   async patch(req: Request, res: Response) {
     try {
+      const data = req.body;
+      const filename = res.locals.filename;
+      console.log("filename",filename)
       const product = await this.ProductRepository.findOne({
         where: {
           id: req.params.id,
         },
       });
-      product.name = req.body.name;
-      product.price = req.body.price;
-      product.image = req.body.image;
-      product.category = req.body.category;
+      cloudinary.config({
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
+      });
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        "./uploads/" + filename
+      );
+      product.name = data.name;
+      product.price = data.price;
+      product.image = cloudinaryResponse.secure_url;
+      product.category = data.category;
       await this.ProductRepository.save(product);
       return res.status(200).json("data berhasil di ubah");
     } catch (error) {
