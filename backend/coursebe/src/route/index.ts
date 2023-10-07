@@ -5,6 +5,7 @@ import ProductController from "../controllers/ProductController";
 import OrderController from "../controllers/OrderController";
 import authenticate from "../middleware/authenticate";
 import PaymentController from "../controllers/PaymentController";
+import { upload } from "../middleware/uploadFile";
 
 const root = express.Router()
 root.get("/",(req:Request,res:Response)=>{
@@ -18,7 +19,7 @@ root.get("/check",authenticate,ValidationController.check);
 
 // product
 root.get("/product", ProductController.get);
-root.post("/addproduct", ProductController.create);
+root.post("/product",upload("image"),ProductController.create);
 root.delete("/deleteproduct/:id", ProductController.delete);
 root.patch("/updateproduct/:id", ProductController.patch);
 

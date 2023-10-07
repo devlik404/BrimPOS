@@ -1,19 +1,19 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
-import { Payment } from "../entities/Payment";
+import { payment_histories } from "../entities/PaymentHistory";
 
 require("dotenv").config();
 class PaymentService {
-  private readonly PaymentHistoryRepository: Repository<Payment> =
-    AppDataSource.getRepository(Payment);
+  private readonly PaymentHistoryRepository: Repository<payment_histories> =
+    AppDataSource.getRepository(payment_histories);
 
   async create(req: Request, res: Response) {
       try {
         const data = req.body;
       const payment_history = this.PaymentHistoryRepository.create({
-          // status:data.status,
-          // total:data.total,
+          status:data.status,
+          total:data.total,
       });
    
       this.PaymentHistoryRepository.save(payment_history);
