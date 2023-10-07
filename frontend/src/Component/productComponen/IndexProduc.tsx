@@ -10,44 +10,57 @@ import {
     FormLabel,
     Input,
     useDisclosure,
-    Select,
-} from '@chakra-ui/react'
-import AddProduct from './AddProduct'
-import AddProductTwo from './AddProductMakanan'
-import AddProductMinuman from './AddProductMinuman'
-import { useAppDispatch } from '../../app/hooks'
-import React, { FormEvent, useState } from 'react'
-import { fetchProduct } from '../../features/Product/poductSlice'
-import { useNavigate } from 'react-router-dom'
+    Select, Table,
+    Thead,
+    Tbody,
+    Tr,
+    Th,
+    Td,
+    TableContainer,
+    Spinner,
+    Center,
 
+} from '@chakra-ui/react'
+import React, { FormEvent, useEffect, useState } from 'react'
+import { deleteProduct, fetchProduct, getProduct, productSelector } from '../../features/Product/poductSlice'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { FaTrashAlt } from "react-icons/fa";
 const IndexProduc = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
-
     const [name, setName] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [price, setPrice] = useState<string>("");
-    const dispatch = useAppDispatch();
-    const  navigate = useNavigate();
-
+    const dispatch = useAppDispatch()
+    const { products, error, loading } = useAppSelector(productSelector)
     function handleAddUser(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         try {
             const newProduct = {
+                id : products.length + 1,
                 name: name,
                 price: price,
                 category: category,
             };
             console.log('newProduct', newProduct)
             dispatch(fetchProduct(newProduct));
-            navigate(`/product`)
+            dispatch(getProduct())
         } catch (error) {
             console.error(error)
         }
 
     }
+
+    const handleDelete = (id: number) => {
+        dispatch(deleteProduct(id))
+        dispatch(getProduct())
+    }
+    useEffect(() => {
+        dispatch(getProduct())
+    }, [dispatch])
+    console.log('product', products)
+
     return (
         <>
             <Box
@@ -121,13 +134,94 @@ const IndexProduc = () => {
                     </Box>
                     <TabPanels>
                         <TabPanel>
-                            <AddProduct />
+                            <TableContainer mt={'20px'}>
+                                <Table variant='simple'>
+                                    <Thead>
+                                        <Tr>
+                                            <Th>Name</Th>
+                                            <Th>Categiry</Th>
+                                            <Th>Price</Th>
+                                            <Th>Action</Th>
+                                        </Tr>
+                                    </Thead>
+                                    {loading && loading ? (
+                                        <Center display={'flex'} marginTop={'150px'}  marginLeft={'200px'} >
+                                            <Spinner 
+                                                thickness='4px'
+                                                speed='0.65s'
+                                                emptyColor='gray.200'
+                                                color='blue.500'
+                                                size='xl'
+                                            />
+                                        </Center>
+                                    ) : error && error ? (
+                                        <Box color="red.500">{error}</Box>
+                                    ) : (
+                                        <Tbody>
+                                            {Array.isArray(products) && products.map((items, index) => (
+                                                <Tr key={index}>
+                                                    <Td>{items.id}</Td>
+                                                    <Td>{items.name}</Td>
+                                                    <Td>{items.category}</Td>
+                                                    <Td>{items.price}</Td>
+                                                    <Td onClick={() => handleDelete(items.id)}><FaTrashAlt/></Td>
+                                                </Tr>
+                                            ))}
+                                        </Tbody>
+                                    )}
+                                </Table>
+                            </TableContainer>
                         </TabPanel>
                         <TabPanel>
-                            <AddProductTwo />
+                            <TableContainer mt={'20px'}>
+                                <Table variant='simple'>
+                                    <Thead>
+                                        <Tr>
+                                            <Th>Name</Th>
+                                            <Th>Categiry</Th>
+                                            <Th>Price</Th>
+                                        </Tr>
+                                    </Thead>
+
+                                    <Tbody>
+                                        {Array.isArray(products) && products
+                                            .filter((item) => item.category === 'food') // Filter produk dengan kategori 'food'
+                                            .map((item, index) => (
+                                                <Tr key={index}>
+                                                    <Td>{item.name}</Td>
+                                                    <Td>{item.category}</Td>
+                                                    <Td>{item.price}</Td>
+                                                </Tr>
+                                            ))
+                                        }
+                                    </Tbody>
+                                </Table>
+                            </TableContainer>
                         </TabPanel>
                         <TabPanel>
-                            <AddProductMinuman />
+                            <TableContainer mt={'20px'}>
+                                <Table variant='simple'>
+                                    <Thead>
+                                        <Tr>
+                                            <Th>Name</Th>
+                                            <Th>Categiry</Th>
+                                            <Th>Price</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                        {Array.isArray(products) && products
+                                            .filter((item) => item.category === 'beferages') // Filter produk dengan kategori 'food'
+                                            .map((item, index) => (
+                                                <Tr key={index}>
+                                                    <Td>{item.name}</Td>
+                                                    <Td>{item.category}</Td>
+                                                    <Td>{item.price}</Td>
+                                                </Tr>
+                                            ))
+                                        }
+                                    </Tbody>
+                                </Table>
+                            </TableContainer>
                         </TabPanel>
                     </TabPanels>
                 </Tabs>

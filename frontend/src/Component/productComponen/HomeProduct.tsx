@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import IndexProduc from './indexProduc'
+import IndexProduc from './IndexProduc'
 
 const HomeProduct = () => {
   return (

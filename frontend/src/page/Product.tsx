@@ -1,26 +1,29 @@
-import { Box,  Container, Text } from '@chakra-ui/react'
-import Layoute from './Layoute'
-import HomeProduct from '../Component/productComponen/HomeProduct'
+import { Box, Container } from '@chakra-ui/react';
+import Layoute from './Layoute';
+import HomeProduct from '../Component/productComponen/HomeProduct';
+
 const Product = () => {
   return (
     <>
       <Container maxW='container.2xl' display={'flex'} justifyContent={'center'}>
-        <Box display={'flex'} width={"1500px"} justifyContent={'space-between'} position={"relative"}>
-          <Box color={'black'} flex={'0,5'} position={"fixed"}  >
+        <Box display={'flex'} width={"1000px"} justifyContent={'space-between'}>
+          <Box color={'black'} flex={'0,5'}  >
             <Layoute />
           </Box>
-          <Box 
-          position={"relative"} 
-          left={'300px'} 
-          // display={'flex'}
-           width={"1000px"}
+          <Box
+            left={'300px'}
+            // display={'flex'}
+            width={"700px"}
+            overflow='hidden' // Menyembunyikan scrollbar secara horizontal dan vertikal
           >
-            <Box color={'black'} flex={'1'} position={"relative"}></Box>
-            <Box >
-              <HomeProduct/>
+            <Box color={'black'} flex={'1'}></Box>
+            <Box>
+              <HomeProduct />
             </Box>
-            <Box flex={'0.5'} position={"relative"} >
-              <Text></Text>
+            <Box flex={'0.5'}>
+              <Box width={'300px'}>
+                {/* <Text>sdfsad</Text> */}
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -29,4 +32,4 @@ const Product = () => {
   )
 }
 
-export default Product
+export default Product;
