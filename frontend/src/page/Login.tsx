@@ -6,18 +6,17 @@ import {
   Container,
   Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Heading,
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Stack,
   Text
 } from "@chakra-ui/react";
 // import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import {  useState } from "react";
+import { useLogin } from "../hooks/useLogin";
 // import Typed from "typed.js";
 // import * as yup from "yup";
 
@@ -51,7 +50,7 @@ function Login() {
       const handleActive = ()=> {
         isActive(!active)
       }
-
+      const {submitHandelValidate,changeHandlerValidate} = useLogin()
   return (
     <Center h={"100vh"} bgImage={"https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2528&q=80"} bgSize={"contain"} >
     <Container py="10" w={"40vw"} h={"80vh"}  >
@@ -77,16 +76,16 @@ function Login() {
       </Flex>
       </Center>
       <Box padding="4" border="1px solid lightgray" boxShadow={"dark-lg"} bg={"blackAlpha.400"} borderRadius="4px" mt="8">
-        <form>
+        <form onSubmit={submitHandelValidate}>
           <Stack spacing="3">
             <FormControl >
               <FormLabel color={"white"}>Email</FormLabel>
-              <Input type="email" name="email" bg={"blackAlpha.600"} color={"white"}/>
+              <Input type='email' onChange={changeHandlerValidate} name="email" bg={"blackAlpha.600"} color={"white"}/>
             </FormControl>
             <FormControl>
               <FormLabel color={"white"}>Password</FormLabel>
               <InputGroup>
-              <Input type={active ? "password" : "text" } bg={"blackAlpha.600"}  name="password" color={"white"}/>
+              <Input type={active ? "password" : "text" } bg={"blackAlpha.600"}  onChange={changeHandlerValidate} name="password" color={"white"}/>
                 <InputRightElement h={'full'}>
                   <Button
                     bg={"transparent"}

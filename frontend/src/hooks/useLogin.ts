@@ -30,7 +30,7 @@ export function useLogin (){
         //  dispatch(AUTH_LOGIN(response.data))
         localStorage.setItem("token",response.data.token)
         setAuthToken(localStorage.token)
-          navigate("/")
+          navigate("/product")
       
       } catch (error) {
           console.log("error submit data",error)
