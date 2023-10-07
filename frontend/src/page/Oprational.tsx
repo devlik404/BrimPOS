@@ -32,6 +32,7 @@ import dummyBeverage from "../utils/beverageDummy.json";
 import dummyFoods from "../utils/foodsDummy.json";
 
 import { SetStateAction, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Operational() {
   const [searchQueryAll, setSearchQueryAll] = useState("");
@@ -126,19 +127,27 @@ export default function Operational() {
               <List spacing={8} fontSize={"24px"}>
                 <ListItem>
                   <ListIcon as={FaBagShopping} color="#6C3428" />
-                  Dashboard
+                  <Link to={"/dashboard"}>
+                    Dashboard
+                  </Link>
                 </ListItem>
-                <ListItem color={"#6C3428"}>
+                <ListItem>
                   <ListIcon as={FaCashRegister} color="#6C3428" />
-                  Operational
+                  <Link to={"/operational"}>
+                    operational
+                  </Link>
                 </ListItem>
                 <ListItem>
                   <ListIcon as={IoFastFood} color="#6C3428" />
-                  Product
+                  <Link to={"/product"}>
+                    product
+                  </Link>
                 </ListItem>
                 <ListItem>
                   <ListIcon as={FaWallet} color="#6C3428" />
-                  Payment
+                  <Link to={"/payment"}>
+                    payment
+                  </Link>
                 </ListItem>
               </List>
             </Box>
