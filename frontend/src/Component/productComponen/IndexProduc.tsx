@@ -29,55 +29,77 @@ import {
   Spinner,
   Center,
 } from "@chakra-ui/react";
-import React, {useEffect} from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
-  deleteProduct,
+  Product,
   getProduct,
   productSelector,
 } from "../../features/Product/poductSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-// import axios from "axios";
-import { usePost } from "../../config/post";
+import { ApiData } from "../../hooks/api";
 const IndexProduc = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
-//   const [name, setName] = useState<string>("");
-//   const [category, setCategory] = useState<string>("");
-//   const [price, setPrice] = useState<number>(0);
-//   const [image, setImage] = useState<File | Blob |string |null>(null);
+  const [form, setForm] = useState<Product>({
+    id: "",
+    name: "",
+    category: "",
+    price: 0,
+    image: "",
+  });
   const dispatch = useAppDispatch();
   const { products, error, loading } = useAppSelector(productSelector);
-//   async function handleAddUser(e: FormEvent<HTMLFormElement>) {
-//     e.preventDefault();
-//     try {
-//       const newProduct = {
-//         name: name,
-//         price: price,
-//         category: category,
-//         image: image,
-//       };
-//       console.log("newProduct", newProduct);
-//     const data = await axios.post('http://localhost:4000/api/v1/product', newProduct)
-//     return data
+  console.log(products, error, loading);
+  async function handleAddProduct(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("price", form.price.toString());
+    formData.append("category", form.category);
+    formData.append("image", form.image as File);
 
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-  const {submitHandler,handleNameChange,handlePriceChange,handleCategoryChange,handlePictureChange,content} = usePost()
-  
-console.log("content",content)
-  const handleDelete = (id: string) => {
-    dispatch(deleteProduct(id));
+    const response = await ApiData.post("/addproduct", formData);
+    console.log("response", response);
+
     dispatch(getProduct());
-  };
+  }
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const {name, value, files} = event.target
+
+    if (files) {
+      setForm({
+        ...form, 
+        [name]: files[0]
+      })
+    } else {
+      setForm({
+        ...form,
+        [name]: value
+      })
+    }
+  }
+
+  function handleChangeSelect(event: ChangeEvent<HTMLSelectElement>) {
+    const { name, value } = event.target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  }
+  
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
   console.log("product", products);
+
+  function handleDelete(id: string): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <>
@@ -123,7 +145,7 @@ console.log("content",content)
                 size={"xl"}
               >
                 <ModalOverlay />
-                <form onSubmit={submitHandler}>
+                <form onSubmit={handleAddProduct} encType="multipart/form-data">
                   <ModalContent>
                     <ModalHeader>Create your account</ModalHeader>
                     <ModalCloseButton />
@@ -134,44 +156,40 @@ console.log("content",content)
                           ref={initialRef}
                           placeholder="Product Name"
                           type="text"
-                        
-                          value={content.name}
-                          onChange={handleNameChange}
+                          name="name"
+                          onChange={handleChange}
                         />
                       </FormControl>
 
                       <FormLabel mt={"20px"}>Category</FormLabel>
                       <Select
-  value={content.category}
-  onChange={handleCategoryChange}
-  name="category"
->
-  <option value="" hidden>
-    Options
-  </option>
-  <option value="food">Food</option>
-  <option value="beferages">Beferages</option>
-</Select>
-
+                        onChange={handleChangeSelect}
+                        name="category"
+                      >
+                        <option value="" hidden>
+                          Options
+                        </option>
+                        <option value="makanan">Food</option>
+                        <option value="minuman">Beverage</option>
+                      </Select>
 
                       <FormControl mt={"20px"}>
                         <FormLabel>price</FormLabel>
                         <Input
-                          placeholder="price"
-                       
                           type="number"
-                          value={content.price}
-                          onChange={handlePriceChange}
+                          placeholder="price"
+                          name="price"
+                          onChange={handleChange}
                         />
                       </FormControl>
 
-                      <FormControl mt={4}>
-                        <FormLabel>Image Product</FormLabel>
+                      <FormControl mt={"20px"}>
+                        <FormLabel>price</FormLabel>
                         <Input
-                          placeholder="Image"
+                          placeholder="image"
                           type="file"
-                        
-                          onChange={handlePictureChange}
+                          name="image"
+                          onChange={handleChange} // Menggunakan setImage untuk mengatur state image
                         />
                       </FormControl>
                     </ModalBody>

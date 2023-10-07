@@ -94,7 +94,7 @@ export interface Product {
   name: string;
   price: number;
   category: string;
-  image?: File | Blob |string |null;
+  image: Blob | MediaSource | string;
 }
 
 export interface ProductState {

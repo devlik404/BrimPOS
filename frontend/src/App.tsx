@@ -68,6 +68,7 @@ function App() {
      
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/product" element={<Product/>} />
+        {/* <Route path="/login" element={<LoginForm />} /> */}
         <Route path="/payment" element={<UserPage/>} />
         <Route path="/operational" element={<Operational/>} />
         <Route path="/register" element={<Register/>} />
