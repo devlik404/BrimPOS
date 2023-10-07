@@ -79,12 +79,19 @@ export default function Operational() {
   const [name,setName] = useState('')
 
 
-  const [tableActive,setTableAcive] = useState(false)
+  const [tableActive1,setTableAcive1] = useState(false)
+  const [tableActive2,setTableAcive2] = useState(false)
+  const [tableActive3,setTableAcive3] = useState(false)
+  const [tableActive4,setTableAcive4] = useState(false)
+
   const [table,setTable] = useState('')
   
   const selectedChange = (table: SetStateAction<string>)=>{
-    if(table==="1"||table==="2"||table==="3"||table==="4"){
-      setTableAcive(true)
+    if(table==="1"){
+      setTableAcive1(true)
+      return setTable(table)
+    }else if(table==="2"){
+      setTableAcive2(true)
       return setTable(table)
     }
     
@@ -147,6 +154,12 @@ export default function Operational() {
                   <ListIcon as={FaWallet} color="#6C3428" />
                   <Link to={"/payment"}>
                     payment
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaWallet} color="#6C3428" />
+                  <Link to={"/login"}>
+                    Log out
                   </Link>
                 </ListItem>
               </List>
@@ -472,7 +485,7 @@ export default function Operational() {
                   <TabPanel>
                     <SimpleGrid columns={4} spacing={10}>
 
-                      { tableActive ? (
+                      { tableActive1 ? (
                         <Button
                         height="160px"
                         w={"160px"}
@@ -496,7 +509,7 @@ export default function Operational() {
                       )
                       }
                     
-                      { tableActive ? (
+                      { tableActive2 ? (
                         <Button
                         height="160px"
                         w={"160px"}
@@ -519,7 +532,7 @@ export default function Operational() {
                       </Button>
                       )
                       }
-                      { tableActive ? (
+                      {/* { tableActive ? (
                         <Button
                         height="160px"
                         w={"160px"}
@@ -564,7 +577,7 @@ export default function Operational() {
                         4 <MdOutlineTableRestaurant size={"full"} />{" "}
                       </Button>
                       )
-                      }
+                      } */}
                       
                     </SimpleGrid>
                   </TabPanel>

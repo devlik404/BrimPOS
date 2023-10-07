@@ -10,7 +10,6 @@ import {
   FormLabel,
   Input,
   Stack,
-  color,
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
