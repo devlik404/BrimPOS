@@ -141,7 +141,7 @@ const IndexProduc = () => {
                                     <Thead>
                                         <Tr>
                                             <Th>Name</Th>
-                                            <Th>Categiry</Th>
+                                            <Th>Categoryes</Th>
                                             <Th>Price</Th>
                                             <Th>Delete</Th>
                                             <Th>Edit</Th>
@@ -231,14 +231,14 @@ const IndexProduc = () => {
                                     <Thead>
                                         <Tr>
                                             <Th>Name</Th>
-                                            <Th>Categiry</Th>
+                                            <Th>Categoryes</Th>
                                             <Th>Price</Th>
                                         </Tr>
                                     </Thead>
 
                                     <Tbody>
                                         {Array.isArray(products) && products
-                                            .filter((item) => item.category === 'food') // Filter produk dengan kategori 'food'
+                                            .filter((item) => item.category === 'makanan') // Filter produk dengan kategori 'food'
                                             .map((item, index) => (
                                                 <Tr key={index}>
                                                     <Td>{item.name}</Td>
@@ -257,13 +257,13 @@ const IndexProduc = () => {
                                     <Thead>
                                         <Tr>
                                             <Th>Name</Th>
-                                            <Th>Categiry</Th>
+                                            <Th>Categoryes</Th>
                                             <Th>Price</Th>
                                         </Tr>
                                     </Thead>
                                     <Tbody>
                                         {Array.isArray(products) && products
-                                            .filter((item) => item.category === 'beferages') // Filter produk dengan kategori 'food'
+                                            .filter((item) => item.category === 'minuman') // Filter produk dengan kategori 'food'
                                             .map((item, index) => (
                                                 <Tr key={index}>
                                                     <Td>{item.name}</Td>

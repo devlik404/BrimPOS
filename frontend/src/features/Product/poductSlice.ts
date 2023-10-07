@@ -84,8 +84,10 @@
 
 
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios";
 import { RootState } from "../../app/store";
+import { ApiData } from "../../hooks/api";
+import axios from "axios";
 
 export interface Product {
   id: number;
@@ -106,9 +108,9 @@ const initialState: ProductState = {
   error: null,
 };
 
-export const getProduct = createAsyncThunk("products/getUsers", async() => {
+export const getProduct = createAsyncThunk("product/getUsers", async() => {
       try {
-          const res = await axios.get('http://localhost:8000/product')
+          const res = await ApiData.get('/product')
           console.table('getUsers',res.data)
           return res.data;
       } catch (error) {
@@ -118,7 +120,7 @@ export const getProduct = createAsyncThunk("products/getUsers", async() => {
 
 export const fetchProduct = createAsyncThunk("product/fetchUsers", async(newProduct: Product) => {
     try {
-        const res = await axios.post('http://localhost:8000/product', newProduct)
+        const res = await axios.post('http://localhost:4000/api/v1/product', newProduct)
         console.table('fetchUsers',res.data)
         return res.data;
     } catch (error) {
@@ -128,7 +130,7 @@ export const fetchProduct = createAsyncThunk("product/fetchUsers", async(newProd
 
 export const editProduct = createAsyncThunk("product/editProduct", async ({ id, newProduct }: { id: number, newProduct: Product }) => {
   try {
-    const res = await axios.put(`http://localhost:8000/product/${id}`, newProduct);
+    const res = await ApiData.put(`/updateproduct/${id}`, newProduct);
     console.table('editProduct', res.data);
     return res.data;
   } catch (error) {
@@ -138,7 +140,7 @@ export const editProduct = createAsyncThunk("product/editProduct", async ({ id, 
 
 export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id : number) => {
     try {
-      const res = await axios.delete(`http://localhost:8000/product/${id}`)
+      const res = await ApiData.delete(`/deleteproduct/${id}`)
       return res.data
     } catch (error) {
       console.log('error bro ',error)

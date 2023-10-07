@@ -5,6 +5,7 @@ import Product from './page/Product'
 import UserPage from './features/users/users'
 import Operational from './page/Oprational'
 import Register from './page/Register'
+import LoginForm from './pages/Loginb'
 // import ProductId from './Component/productComponen/ProductId'
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Route>
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/product" element={<Product/>} />
-        {/* <Route path="/product/:id" element={<ProductId/>} /> */}
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/payment" element={<UserPage/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/operational" element={<Operational/>} />
