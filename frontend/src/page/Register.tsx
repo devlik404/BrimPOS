@@ -14,7 +14,9 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRegister } from "../hooks/useRegister";
 export default function Register() {
+  const {submitHandelValidate,changeHandlerValidate} = useRegister()
   const [active, isActive] = useState(false);
   const handleActive = () => {
     isActive(!active);
@@ -71,15 +73,15 @@ export default function Register() {
                 borderRadius="4px"
                 mt="8"
               >
-                <form>
+                <form onSubmit={submitHandelValidate}>
                   <Stack spacing="3">
                     <FormControl>
                       <FormLabel color={"white"}>Username</FormLabel>
-                      <Input color={"white"} />
+                      <Input color={"white"} placeholder='username' onChange={changeHandlerValidate} name="username"/>
                     </FormControl>
                     <FormControl>
                       <FormLabel color={"white"}>Email</FormLabel>
-                      <Input color={"white"} />
+                      <Input color={"white"} type='email' onChange={changeHandlerValidate} name="email"/>
                     </FormControl>
                     <FormControl>
                       <FormLabel color={"white"}>Password</FormLabel>
@@ -87,6 +89,8 @@ export default function Register() {
                         <Input
                           type={active ? "password" : "text"}
                           bg={"blackAlpha.600"}
+                          placeholder='Enter password'
+                          onChange={changeHandlerValidate} 
                           name="password"
                           color={"white"}
                         />

@@ -4,7 +4,6 @@ import App from './App.tsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { CSSReset, ChakraProvider } from '@chakra-ui/react'
-import '@fontsource-variable/plus-jakarta-sans';
 import { Provider } from 'react-redux'
 import { store } from './app/store.ts'
 
