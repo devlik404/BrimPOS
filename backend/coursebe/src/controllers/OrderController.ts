@@ -6,13 +6,13 @@ class OrderController {
     OrderService.create(req, res);
   }
 
-//   delete(req: Request, res: Response) {
-//     OrderService.delete(req, res);
-//   }
+  //   delete(req: Request, res: Response) {
+  //     OrderService.delete(req, res);
+  //   }
 
-//   patch(req: Request, res: Response) {
-//     OrderService.patch(req, res);
-//   }
+  //   patch(req: Request, res: Response) {
+  //     OrderService.patch(req, res);
+  //   }
 
   find(req: Request, res: Response) {
     OrderService.find(req, res);

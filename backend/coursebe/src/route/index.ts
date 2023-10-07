@@ -4,15 +4,15 @@ import ValidationController from "../controllers/ValidationController";
 import ProductController from "../controllers/ProductController";
 import OrderController from "../controllers/OrderController";
 
-const root = express.Router()
-root.get("/",(req:Request,res:Response)=>{
-    return res.json({ message: 'hello world' });
+const root = express.Router();
+root.get("/", (req: Request, res: Response) => {
+  return res.json({ message: "hello world" });
 });
 
 // auth
-root.post("/register",ValidationController.register);
-root.post("/login",ValidationController.login);
-root.get("/check",ValidationController.check);
+root.post("/register", ValidationController.register);
+root.post("/login", ValidationController.login);
+root.get("/check", ValidationController.check);
 
 // product
 root.get("/product", ProductController.get);
@@ -25,6 +25,5 @@ root.get("/order", OrderController.find);
 root.post("/addorder", OrderController.create);
 // root.delete("/deleteorder/:id", OrderController.delete);
 // root.patch("/updateorder/:id", OrderController.patch);
-
 
 export default root;

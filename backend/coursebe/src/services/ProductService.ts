@@ -11,10 +11,10 @@ class ProductService {
     try {
       const data = req.body;
       const products = this.ProductRepository.create({
-          name: data.name,
-          price: data.price,
-          image: data.image,
-          category: data.category,
+        name: data.name,
+        price: data.price,
+        image: data.image,
+        category: data.category,
       });
       this.ProductRepository.save(products);
       return res.status(200).json("data berhasil di tambahkan");
