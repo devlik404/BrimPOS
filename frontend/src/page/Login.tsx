@@ -53,7 +53,7 @@ function Login() {
       }
 
   return (
-    <Center h={"100vh"} bgImage={"https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2528&q=80"} bgSize={"contain"} >
+    <Center h={"100vh"} w={"100vw"} bgImage={"https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2528&q=80"} bgSize={"contain"} >
     <Container py="10" w={"40vw"} h={"80vh"}  >
       <Center>
       <Flex gap={2}>

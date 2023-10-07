@@ -22,7 +22,6 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  HStack,
   InputLeftElement,
   Image,
 } from "@chakra-ui/react";
@@ -47,33 +46,25 @@ export default function Operational() {
   const handleSearchInputChangeAll = (event: any) => {
     const query = event.target.value;
     setSearchQueryAll(query);
-
     const filteredAll = [...dummyBeverage, ...dummyFoods].filter((item) =>
       item.nameProduct?.toLowerCase().includes(query.toLowerCase())
     );
-
     setFilteredProductsAll(filteredAll);
   };
-
   const handleSearchInputChange = (event: any) => {
     const query = event.target.value;
     setSearchQuery(query);
-
     const filtered = dummyBeverage.filter((item) =>
       item.nameProduct?.toLowerCase().includes(query.toLowerCase())
     );
-
     setFilteredProducts(filtered);
   };
-
   const handleSearchInputChangeFoods = (event: any) => {
     const query = event.target.value;
     setSearchQueryFoods(query);
-
     const filtered = dummyFoods.filter((item) =>
       item.nameProduct?.toLowerCase().includes(query.toLowerCase())
     );
-
     setFilteredProductsFoods(filtered);
   };
   const [name,setName] = useState('')
