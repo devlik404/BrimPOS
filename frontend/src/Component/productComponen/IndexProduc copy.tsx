@@ -17,15 +17,15 @@ import {
     Th,
     Td,
     TableContainer,
-    // Spinner,
-    // Center,
+    Spinner,
+    Center,
 
 } from '@chakra-ui/react'
 import React, { FormEvent, useEffect, useState } from 'react'
-// import { FaTrashAlt } from "react-icons/fa";
+import { deleteProduct, fetchProduct, getProduct, productSelector } from '../../features/Product/poductSlice'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { FaTrashAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-// import { Product } from '../../features/Product/poductSlice';
-import axios from 'axios';
 const IndexProduc = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef(null)
@@ -33,19 +33,20 @@ const IndexProduc = () => {
     const [name, setName] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [price, setPrice] = useState<string>("");
-    async function handleAddUser(e: FormEvent<HTMLFormElement>) {
+    const dispatch = useAppDispatch()
+    const { products, error, loading } = useAppSelector(productSelector)
+    function handleAddUser(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         try {
             const newProduct = {
+                id: products.length + 1,
                 name: name,
                 price: price,
                 category: category,
             };
             console.log('newProduct', newProduct)
-            const tambah = await axios.post('http://localhost:8000/product', newProduct)
-            console.log('tambah', tambah)
-            // datash()
-            return tambah
+            dispatch(fetchProduct(newProduct));
+            dispatch(getProduct())
         } catch (error) {
             console.error(error)
         }
@@ -53,19 +54,14 @@ const IndexProduc = () => {
     }
 
 
-    // const handleDelete = (id: number) => {
-    //     dispatch(deleteProduct(id))
-    //     dispatch(getProduct())
-    // }
-    const [datash , setDatash] = useState([])
+    const handleDelete = (id: number) => {
+        dispatch(deleteProduct(id))
+        dispatch(getProduct())
+    }
     useEffect(() => {
-        const datas = async () => {
-            const ress = await axios.get('http://localhost:8000/product')
-            setDatash(ress.data)
-        }
-        datas()
-    }, [datash])
-    console.log('datash', datash)
+        dispatch(getProduct())
+    }, [dispatch])
+    console.log('product', products)
 
     return (
         <>
@@ -151,7 +147,7 @@ const IndexProduc = () => {
                                             <Th>Edit</Th>
                                         </Tr>
                                     </Thead>
-                                    {/* {loading && loading ? (
+                                    {loading && loading ? (
                                         <Center display={'flex'} marginTop={'150px'} marginLeft={'200px'} >
                                             <Spinner
                                                 thickness='4px'
@@ -163,14 +159,14 @@ const IndexProduc = () => {
                                         </Center>
                                     ) : error && error ? (
                                         <Box color="red.500">{error}</Box>
-                                    ) : ( */}
+                                    ) : (
                                         <Tbody>
-                                            { datash.map((items, index) => (
+                                            {Array.isArray(products) && products.map((items, index) => (
                                                 <Tr key={index}>
-                                                    <Td>{items?.name}</Td>
-                                                    <Td>{items?.category}</Td>
-                                                    <Td>{items?.price}</Td>
-                                                    {/* <Td onClick={() => handleDelete(items.id)}><FaTrashAlt /></Td> */}
+                                                    <Td>{items.name}</Td>
+                                                    <Td>{items.category}</Td>
+                                                    <Td>{items.price}</Td>
+                                                    <Td onClick={() => handleDelete(items.id)}><FaTrashAlt /></Td>
                                                     <Td >
                                                         <Link to={`/product/${items.id}`}>edit </Link>
                                                         {/* <Box>
@@ -225,7 +221,7 @@ const IndexProduc = () => {
                                                 </Tr>
                                             ))}
                                         </Tbody>
-                                    {/* )} */}
+                                    )}
                                 </Table>
                             </TableContainer>
                         </TabPanel>
@@ -241,9 +237,7 @@ const IndexProduc = () => {
                                     </Thead>
 
                                     <Tbody>
-                                        {
-                                        // Array.isArray(datash) && 
-                                        datash
+                                        {Array.isArray(products) && products
                                             .filter((item) => item.category === 'makanan') // Filter produk dengan kategori 'food'
                                             .map((item, index) => (
                                                 <Tr key={index}>
@@ -268,9 +262,7 @@ const IndexProduc = () => {
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {
-                                        // Array.isArray(datash) &&
-                                         datash
+                                        {Array.isArray(products) && products
                                             .filter((item) => item.category === 'minuman') // Filter produk dengan kategori 'food'
                                             .map((item, index) => (
                                                 <Tr key={index}>
