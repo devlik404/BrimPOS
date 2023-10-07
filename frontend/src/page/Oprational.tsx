@@ -2,8 +2,8 @@
 import { FaBagShopping, FaCashRegister, FaWallet } from "react-icons/fa6";
 import { IoFastFood } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
-import { MdOutlineTableBar, MdOutlineTableRestaurant, MdViewCompactAlt } from "react-icons/md";
-import { BiBookAdd } from "react-icons/bi";
+import { MdOutlineTableRestaurant } from "react-icons/md";
+// import { BiBookAdd } from "react-icons/bi";
 import {
   Box,
   Text,
@@ -44,7 +44,7 @@ export default function Operational() {
   const [filteredProducts, setFilteredProducts] = useState(dummyBeverage);
   const [filteredProductsFoods, setFilteredProductsFoods] = useState(dummyFoods);
 
-  const handleSearchInputChangeAll = (event: any) => {
+  const handleSearchInputChangeAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     setSearchQueryAll(query);
     const filteredAll = [...dummyBeverage, ...dummyFoods].filter((item) =>
@@ -52,7 +52,7 @@ export default function Operational() {
     );
     setFilteredProductsAll(filteredAll);
   };
-  const handleSearchInputChange = (event: any) => {
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     setSearchQuery(query);
     const filtered = dummyBeverage.filter((item) =>
@@ -60,7 +60,7 @@ export default function Operational() {
     );
     setFilteredProducts(filtered);
   };
-  const handleSearchInputChangeFoods = (event: any) => {
+  const handleSearchInputChangeFoods = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     setSearchQueryFoods(query);
     const filtered = dummyFoods.filter((item) =>
@@ -68,13 +68,16 @@ export default function Operational() {
     );
     setFilteredProductsFoods(filtered);
   };
-  const [name,setName] = useState('')
+  const [count, setCount] = useState(0);
 
+  const handleButtonClick = () => {
+    setCount(count + 1);
+  };
 
   const [tableActive1,setTableAcive1] = useState(false)
   const [tableActive2,setTableAcive2] = useState(false)
-  const [tableActive3,setTableAcive3] = useState(false)
-  const [tableActive4,setTableAcive4] = useState(false)
+  // const [tableActive3,setTableAcive3] = useState(false)
+  // const [tableActive4,setTableAcive4] = useState(false)
 
   const [table,setTable] = useState('')
   
@@ -96,6 +99,7 @@ export default function Operational() {
       setTable(table);
       setSelectedProductName(productName);
       setSelectedProductPrice(price);
+      selectedProductName + 1
     } else if (table === "2") {
       setTableAcive2(true);
       setTable(table);
@@ -349,7 +353,11 @@ export default function Operational() {
                                   borderRadius={"md"}
                                   boxShadow={"md"}
                                   key={item.id}
-                                  onClick={() => selectedChange("1", item.nameProduct, item.priceProduct)}
+                                  onClick={() => {
+                                    handleButtonClick();
+                                    selectedChange(count, item.nameProduct, item.priceProduct );
+                                  }}
+                                  
                                   cursor={"pointer"}
                                 >
                                   <Center>
@@ -386,10 +394,10 @@ export default function Operational() {
                                         w={"30px"}
                                         h={"26px"}
                                         overflow={"hidden"}
-                                        ms={3}
+                                        ms={3}  
                                       >
                                         {" "}
-                                        {item.priceProduct}{" "}
+                                        {item.priceProduct}{count} 
                                       </Box>
                                     </SimpleGrid>
                                   </Center>
