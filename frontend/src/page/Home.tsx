@@ -3,14 +3,15 @@
 // import ThreadView from "../feacure/threacd/coba_coba/ThreadView"
 // import AddComent from "../feacure/threacd/component/AddStatus"
 // import View from "../feacure/threacd/component/view"
-import { Box } from '@chakra-ui/react'
+import { Box, Center, Heading } from '@chakra-ui/react'
 // import Items from '../Component/productComponen/Items'
 // import { Flex, Square, Center } from '@chakra-ui/react'
 const Home = () => {
 
     return (
-        <Box color={'black'} backgroundColor={'red'}>
-            {/* <Items /> */}
+        <Box mt={56} >
+            <Center> <Heading> Welcome To Brim Coffee shop</Heading> </Center>
+            
         </Box>
     )
 }
