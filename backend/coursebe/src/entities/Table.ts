@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { orders } from './Order';
+import { Orders } from './Order';
 
 @Entity({ name: 'tables' })
 export class Tables {
@@ -9,6 +9,6 @@ export class Tables {
   @Column({ nullable: true })
   tableName: string;
 
-  @OneToMany(() => orders, (orders) => orders.table)
-  orders: orders[];
+  @OneToMany(() => Orders, (orders) => orders.table)
+  orders: Orders[];
 }

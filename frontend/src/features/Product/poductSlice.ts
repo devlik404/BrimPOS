@@ -92,8 +92,9 @@ import axios from "axios";
 export interface Product {
   id: number;
   name: string;
-  price: string;
+  price: number;
   category: string;
+  image: Blob | MediaSource | string;
 }
 
 export interface ProductState {
