@@ -12,6 +12,7 @@ class ProductService {
   async create(req: Request, res: Response) {
     try {
       const data = req.body;
+      console.log("data product",data)
       const filename = res.locals.filename;
       console.log("filename",filename)
       const products = this.ProductRepository.create({

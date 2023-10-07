@@ -19,7 +19,7 @@ root.get("/check",authenticate,ValidationController.check);
 
 // product
 root.get("/product", ProductController.get);
-root.post("/product",upload("image"),ProductController.create);
+root.post("/addproduct",upload("image"),ProductController.create);
 root.delete("/deleteproduct/:id", ProductController.delete);
 root.patch("/updateproduct/:id",upload("image"), ProductController.patch);
 

@@ -77,7 +77,8 @@ export default function Register() {
                   <Stack spacing="3">
                     <FormControl>
                       <FormLabel color={"white"}>Username</FormLabel>
-                      <Input color={"white"} placeholder='username' onChange={changeHandlerValidate} name="username"/>
+                      <Input color={"white"} placeholder='username
+                      ' onChange={changeHandlerValidate} name="username"/>
                     </FormControl>
                     <FormControl>
                       <FormLabel color={"white"}>Email</FormLabel>

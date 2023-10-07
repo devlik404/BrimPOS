@@ -90,10 +90,11 @@ import { ApiData } from "../../hooks/api";
 import axios from "axios";
 
 export interface Product {
-  id: number;
+  id: string;
   name: string;
-  price: string;
+  price: number;
   category: string;
+  image?: File | Blob |string |null;
 }
 
 export interface ProductState {
@@ -128,7 +129,7 @@ export const fetchProduct = createAsyncThunk("product/fetchUsers", async(newProd
     }
 })
 
-export const editProduct = createAsyncThunk("product/editProduct", async ({ id, newProduct }: { id: number, newProduct: Product }) => {
+export const editProduct = createAsyncThunk("product/editProduct", async ({ id, newProduct }: { id: string, newProduct: Product }) => {
   try {
     const res = await ApiData.put(`/updateproduct/${id}`, newProduct);
     console.table('editProduct', res.data);
@@ -138,7 +139,7 @@ export const editProduct = createAsyncThunk("product/editProduct", async ({ id, 
   }
 });
 
-export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id : number) => {
+export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id : string) => {
     try {
       const res = await ApiData.delete(`/deleteproduct/${id}`)
       return res.data
