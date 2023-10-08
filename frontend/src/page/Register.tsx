@@ -40,7 +40,7 @@ export default function Register() {
               fontFamily={"serif"}
               textAlign={"center"}
             >
-              Welcome_ To Brim Coffee Shop
+              Welcome BShope
             </Text>
             <Text
               fontSize={"40px"}
@@ -49,7 +49,7 @@ export default function Register() {
               fontWeight={"bold"}
               textAlign={"center"}
             >
-              Temmukan Rasa kopi yang Berbeda
+             Jadilah Penjual Yang 
             </Text>
             <Text
               fontSize={"40px"}
@@ -58,7 +58,7 @@ export default function Register() {
               fontWeight={"bold"}
               textAlign={"center"}
             >
-              Tentukan Rasa
+              Amanah 
             </Text>
           </Box>
 

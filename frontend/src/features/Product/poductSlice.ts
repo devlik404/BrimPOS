@@ -109,6 +109,7 @@ const initialState: ProductState = {
   error: null,
 };
 
+
 export const getProduct = createAsyncThunk("product/getUsers", async() => {
       try {
           const res = await ApiData.get('/product')

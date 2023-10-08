@@ -1,11 +1,8 @@
 import { FaBagShopping, FaCashRegister, FaWallet } from "react-icons/fa6";
 import { IoFastFood } from "react-icons/io5";
 import {
-  MdOutlineTableBar,
   MdOutlineTableRestaurant,
-  MdViewCompactAlt,
 } from "react-icons/md";
-import { BiBookAdd } from "react-icons/bi";
 import {
   Box,
   Text,
@@ -34,9 +31,12 @@ import dummyBeverage from "../utils/beverageDummy.json";
 import dummyFoods from "../utils/foodsDummy.json";
 
 import { SetStateAction, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getProduct, productSelector } from "../features/Product/poductSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { Itable } from "../interface/Itable";
+import { ApiData } from "../hooks/api";
+import GetTables from "../service/useTable";
 
 export default function Operational() {
   const [searchQueryAll, setSearchQueryAll] = useState("");
@@ -76,19 +76,19 @@ export default function Operational() {
   const [name, setName] = useState("");
 
   const [tableActive1, setTableAcive1] = useState(false);
-  const [tableActive2, setTableAcive2] = useState(false);
-  const [tableActive3, setTableAcive3] = useState(false);
-  const [tableActive4, setTableAcive4] = useState(false);
+ 
 
-  const [table, setTable] = useState("");
+  // const [table, setTable] = useState("");
 
+  const {tableData} = GetTables();
+  console.log("table set",tableData)
   const selectedChange = (table: SetStateAction<string>) => {
     if (table === "1") {
       setTableAcive1(true);
-      return setTable(table);
+      return setTableData(table);
     } else if (table === "2") {
       setTableAcive2(true);
-      return setTable(table);
+      return setTableData(table);
     }
   };
   const ifNotFound = (
@@ -172,7 +172,7 @@ export default function Operational() {
                 <TabIndicator
                   mt="-1.5px"
                   height="2px"
-                  bg="blue.500"
+                 
                   borderRadius="1px"
                 />
                 <TabPanels>
@@ -183,7 +183,7 @@ export default function Operational() {
                           <Tab
                             _selected={{
                               color: "white",
-                              bg: "#6C3428",
+                              
                               borderRadius: "5",
                             }}
                           >
@@ -192,7 +192,7 @@ export default function Operational() {
                           <Tab
                             _selected={{
                               color: "white",
-                              bg: "#6C3428",
+                          
                               borderRadius: "5",
                             }}
                           >
@@ -201,7 +201,7 @@ export default function Operational() {
                           <Tab
                             _selected={{
                               color: "white",
-                              bg: "#6C3428",
+                            
                               borderRadius: "5",
                             }}
                           >
@@ -214,7 +214,7 @@ export default function Operational() {
                         {/* ALL */}
                         <TabPanel>
                           <Center>
-                            <InputGroup bg={"white"} ms={"-5"} w={"50%"}>
+                            <InputGroup  ms={"-5"} w={"50%"}>
                               <InputLeftElement pointerEvents="none">
                                 <Image src={SearchProduct} />
                               </InputLeftElement>
@@ -244,7 +244,7 @@ export default function Operational() {
                             >
                               {products.map((item) => (
                                 <Box
-                                  bg="gray.50"
+                               
                                   height="150px"
                                   w={"180px"}
                                   borderRadius={"md"}
@@ -303,7 +303,7 @@ export default function Operational() {
                         {/* FOODS */}
                         <TabPanel>
                           <Center>
-                            <InputGroup bg={"white"} ms={"-5"} w={"50%"}>
+                            <InputGroup ms={"-5"} w={"50%"}>
                               <InputLeftElement pointerEvents="none">
                                 <Image src={SearchProduct} />
                               </InputLeftElement>
@@ -335,7 +335,7 @@ export default function Operational() {
                                   .filter((item) => item.category === "makanan")
                                   .map((item) => (
                                     <Box
-                                      bg="gray.50"
+                                    
                                       height="150px"
                                       w={"180px"}
                                       borderRadius={"md"}
@@ -395,7 +395,7 @@ export default function Operational() {
                         {/* BEVERAGES */}
                         <TabPanel>
                           <Center>
-                            <InputGroup bg={"white"} ms={"-5"} w={"50%"}>
+                            <InputGroup  ms={"-5"} w={"50%"}>
                               <InputLeftElement pointerEvents="none">
                                 <Image src={SearchProduct} />
                               </InputLeftElement>
@@ -427,7 +427,7 @@ export default function Operational() {
                                   .filter((item) => item.category === "minuman")
                                   .map((item) => (
                                 <Box
-                                  bg="gray.50"
+                              
                                   height="150px"
                                   w={"180px"}
                                   borderRadius={"md"}
@@ -486,17 +486,20 @@ export default function Operational() {
                     </Tabs>
                   </TabPanel>
                   <TabPanel>
+                  {tableData?.map((item,) => (
+              
                     <SimpleGrid columns={4} spacing={10}>
                       {tableActive1 ? (
                         <Button
+                        key={item.id}
                           height="160px"
                           w={"160px"}
                           fontSize={"30px"}
-                          bg={"gray.200"}
                           borderColor={"green"}
                         >
-                          1 <MdOutlineTableRestaurant size={"full"} />{" "}
+                          {item.tableName} <MdOutlineTableRestaurant size={"full"} />{" "}
                         </Button>
+                        
                       ) : (
                         <Button
                           height="160px"
@@ -505,78 +508,13 @@ export default function Operational() {
                           fontSize={"30px"}
                           bg={"transparent"}
                         >
-                          1 <MdOutlineTableRestaurant size={"full"} />{" "}
+                          {item.tableName} <MdOutlineTableRestaurant size={"full"} />{" "}
                         </Button>
                       )}
-
-                      {tableActive2 ? (
-                        <Button
-                          height="160px"
-                          w={"160px"}
-                          fontSize={"30px"}
-                          bg={"gray.200"}
-                          borderColor={"green"}
-                        >
-                          2 <MdOutlineTableRestaurant size={"full"} />{" "}
-                        </Button>
-                      ) : (
-                        <Button
-                          height="160px"
-                          w={"160px"}
-                          onClick={() => selectedChange("2")}
-                          fontSize={"30px"}
-                          bg={"transparent"}
-                        >
-                          2 <MdOutlineTableRestaurant size={"full"} />{" "}
-                        </Button>
-                      )}
-                      {/* { tableActive ? (
-                        <Button
-                        height="160px"
-                        w={"160px"}
-                        fontSize={"30px"}
-                        bg={"gray.200"}
-                        borderColor={"green"}
-                      >
-                        3 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
-                      ) : (
-                        <Button
-                        height="160px"
-                        w={"160px"}
-                        onClick={()=>selectedChange("3")}
-                        fontSize={"30px"}
-                        bg={"transparent"}
-                        
-                      >
-                        3 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
-                      )
-                      }
-                      { tableActive ? (
-                        <Button
-                        height="160px"
-                        w={"160px"}
-                        fontSize={"30px"}
-                        bg={"gray.200"}
-                        borderColor={"green"}
-                      >
-                        4 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
-                      ) : (
-                        <Button
-                        height="160px"
-                        w={"160px"}
-                        onClick={()=>selectedChange("4")}
-                        fontSize={"30px"}
-                        bg={"transparent"}
-                        
-                      >
-                        4 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
-                      )
-                      } */}
+                      
                     </SimpleGrid>
+               
+))}
                   </TabPanel>
                 </TabPanels>
               </Tabs>
@@ -588,7 +526,7 @@ export default function Operational() {
             </Heading>
             <Center>
               <Box w={"95%"} mt={5} lineHeight={"30px"}>
-                <Text>Table: {table} </Text>
+                <Text>Table:  </Text>
                 <Text>Product name: {name} </Text>
                 <Text>Price:</Text>
                 <Text>Quantity:</Text>
