@@ -1,9 +1,7 @@
-
 import { FaBagShopping, FaCashRegister, FaWallet } from "react-icons/fa6";
 import { IoFastFood } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
-import { MdOutlineTableBar, MdOutlineTableRestaurant, MdViewCompactAlt } from "react-icons/md";
-import { BiBookAdd } from "react-icons/bi";
+import { MdOutlineTableRestaurant } from "react-icons/md";
 import {
   Box,
   Text,
@@ -42,7 +40,8 @@ export default function Operational() {
     dummyBeverage.concat(dummyFoods)
   );
   const [filteredProducts, setFilteredProducts] = useState(dummyBeverage);
-  const [filteredProductsFoods, setFilteredProductsFoods] = useState(dummyFoods);
+  const [filteredProductsFoods, setFilteredProductsFoods] =
+    useState(dummyFoods);
 
   const handleSearchInputChangeAll = (event: any) => {
     const query = event.target.value;
@@ -68,29 +67,19 @@ export default function Operational() {
     );
     setFilteredProductsFoods(filtered);
   };
-  const [name,setName] = useState('')
 
+  const [tableActive1, setTableAcive1] = useState(false);
+  const [tableActive2, setTableAcive2] = useState(false);
 
-  const [tableActive1,setTableAcive1] = useState(false)
-  const [tableActive2,setTableAcive2] = useState(false)
-  const [tableActive3,setTableAcive3] = useState(false)
-  const [tableActive4,setTableAcive4] = useState(false)
+  const [table, setTable] = useState("");
 
-  const [table,setTable] = useState('')
-  
-  // const selectedChange = (table: SetStateAction<string>)=>{
-  //   if(table==="1"){
-  //     setTableAcive1(true)
-  //     return setTable(table)
-  //   }else if(table==="2"){
-  //     setTableAcive2(true)
-  //     return setTable(table)
-  //   }
-    
-  // }
   const [selectedProductName, setSelectedProductName] = useState("");
   const [selectedProductPrice, setSelectedProductPrice] = useState("");
-  const selectedChange = (table: SetStateAction<string>, productName: string, price: string) => {
+  const selectedChange = (
+    table: SetStateAction<string>,
+    productName: string,
+    price: string
+  ) => {
     if (table === "1") {
       setTableAcive1(true);
       setTable(table);
@@ -120,7 +109,6 @@ export default function Operational() {
     </Box>
   );
 
-
   return (
     <>
       <Box
@@ -129,7 +117,6 @@ export default function Operational() {
         position={"fixed"}
         fontFamily={"arial"}
         overflow="hidden"
-       
       >
         <Flex>
           {/* SIDE BAR */}
@@ -142,33 +129,23 @@ export default function Operational() {
               <List spacing={8} fontSize={"24px"}>
                 <ListItem>
                   <ListIcon as={FaBagShopping} color="#6C3428" />
-                  <Link to={"/dashboard"}>
-                    Dashboard
-                  </Link>
+                  <Link to={"/dashboard"}>Dashboard</Link>
                 </ListItem>
-                <ListItem textShadow={"lg"} >
+                <ListItem textShadow={"lg"}>
                   <ListIcon as={FaCashRegister} color="#6C3428" />
-                  <Link to={"/operational"}>
-                    operational
-                  </Link>
+                  <Link to={"/operational"}>operational</Link>
                 </ListItem>
                 <ListItem>
                   <ListIcon as={IoFastFood} color="#6C3428" />
-                  <Link to={"/product"}>
-                    product
-                  </Link>
+                  <Link to={"/product"}>product</Link>
                 </ListItem>
                 <ListItem>
                   <ListIcon as={FaWallet} color="#6C3428" />
-                  <Link to={"/payment"}>
-                    payment
-                  </Link>
+                  <Link to={"/payment"}>payment</Link>
                 </ListItem>
-                <ListItem position={"absolute"} bottom={10} >
+                <ListItem position={"absolute"} bottom={10}>
                   <ListIcon as={CiLogout} color="#6C3428" />
-                  <Link to={"/login"}>
-                    Log out
-                  </Link>
+                  <Link to={"/login"}>Log out</Link>
                 </ListItem>
               </List>
             </Box>
@@ -178,7 +155,13 @@ export default function Operational() {
             <Flex boxShadow={"sm"} gap={"50"} py={5} px={5} h={"10%"}>
               <Tabs position="relative" variant="unstyled" w={"100%"}>
                 <TabList gap={16}>
-                  <Tab fontSize={"22px"} _hover={{border:"none"}} borderColor={"transparent"} >Menu</Tab>
+                  <Tab
+                    fontSize={"22px"}
+                    _hover={{ border: "none" }}
+                    borderColor={"transparent"}
+                  >
+                    Menu
+                  </Tab>
                   <Tab fontSize={"22px"}>Table</Tab>
                 </TabList>
                 <TabIndicator
@@ -349,7 +332,13 @@ export default function Operational() {
                                   borderRadius={"md"}
                                   boxShadow={"md"}
                                   key={item.id}
-                                  onClick={() => selectedChange("1", item.nameProduct, item.priceProduct)}
+                                  onClick={() =>
+                                    selectedChange(
+                                      "1",
+                                      item.nameProduct,
+                                      item.priceProduct
+                                    )
+                                  }
                                   cursor={"pointer"}
                                 >
                                   <Center>
@@ -492,55 +481,49 @@ export default function Operational() {
                   </TabPanel>
                   <TabPanel>
                     <SimpleGrid columns={4} cursor={"pointer"} spacing={10}>
-
-                      { tableActive1 ? (
+                      {tableActive1 ? (
                         <Button
-                        height="160px"
-                        w={"160px"}
-                        fontSize={"30px"}
-                        bg={"gray.200"}
-                        borderColor={"green"}
-
-                      >
-                        1 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
+                          height="160px"
+                          w={"160px"}
+                          fontSize={"30px"}
+                          bg={"gray.200"}
+                          borderColor={"green"}
+                        >
+                          1 <MdOutlineTableRestaurant size={"full"} />{" "}
+                        </Button>
                       ) : (
                         <Button
-                        height="160px"
-                        w={"160px"}
-                        // onClick={()=>selectedChange("1")}
-                        fontSize={"30px"}
-                        bg={"transparent"}
-                        
-                      >
-                        1 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
-                      )
-                      }
-                    
-                      { tableActive2 ? (
+                          height="160px"
+                          w={"160px"}
+                          // onClick={()=>selectedChange("1")}
+                          fontSize={"30px"}
+                          bg={"transparent"}
+                        >
+                          1 <MdOutlineTableRestaurant size={"full"} />{" "}
+                        </Button>
+                      )}
+
+                      {tableActive2 ? (
                         <Button
-                        height="160px"
-                        w={"160px"}
-                        fontSize={"30px"}
-                        bg={"gray.200"}
-                        borderColor={"green"}
-                      >
-                        2 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
+                          height="160px"
+                          w={"160px"}
+                          fontSize={"30px"}
+                          bg={"gray.200"}
+                          borderColor={"green"}
+                        >
+                          2 <MdOutlineTableRestaurant size={"full"} />{" "}
+                        </Button>
                       ) : (
                         <Button
-                        height="160px"
-                        w={"160px"}
-                        // onClick={()=>selectedChange("2")}
-                        fontSize={"30px"}
-                        bg={"transparent"}
-                        
-                      >
-                        2 <MdOutlineTableRestaurant size={"full"} />{" "}
-                      </Button>
-                      )
-                      }
+                          height="160px"
+                          w={"160px"}
+                          // onClick={()=>selectedChange("2")}
+                          fontSize={"30px"}
+                          bg={"transparent"}
+                        >
+                          2 <MdOutlineTableRestaurant size={"full"} />{" "}
+                        </Button>
+                      )}
                       {/* { tableActive ? (
                         <Button
                         height="160px"
@@ -587,7 +570,6 @@ export default function Operational() {
                       </Button>
                       )
                       } */}
-                      
                     </SimpleGrid>
                   </TabPanel>
                 </TabPanels>
@@ -600,15 +582,24 @@ export default function Operational() {
             </Heading>
             <Center>
               <Box w={"95%"} mt={5} lineHeight={"30px"}>
-              <Text>Meja: {table} </Text>
-              <Text>Nama Produk: {selectedProductName} </Text>
-              <Text>Harga: {selectedProductPrice} </Text>
+                <Text>Meja: {table} </Text>
+                <Text>Nama Produk: {selectedProductName} </Text>
+                <Text>Harga: {selectedProductPrice} </Text>
               </Box>
             </Center>
             <Center>
               <Box w={"95%"} mt={5} h={"100vh"}>
-                <Button position={"absolute"} bg={"#6C3428"} bottom={10} w={"10vw"} _hover={{bg:"#6C3428",color:"white"}} color={"white"}  >bayar</Button>
-                <Heading position={"absolute"} bottom={24} >
+                <Button
+                  position={"absolute"}
+                  bg={"#6C3428"}
+                  bottom={10}
+                  w={"10vw"}
+                  _hover={{ bg: "#6C3428", color: "white" }}
+                  color={"white"}
+                >
+                  bayar
+                </Button>
+                <Heading position={"absolute"} bottom={24}>
                   {" "}
                   Total:{selectedProductPrice}
                 </Heading>
@@ -620,4 +611,3 @@ export default function Operational() {
     </>
   );
 }
-
