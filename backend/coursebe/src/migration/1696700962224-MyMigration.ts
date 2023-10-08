@@ -1,12 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-<<<<<<< HEAD:backend/coursebe/src/migration/1696695844161-MyMigration.ts
-export class MyMigration1696695844161 implements MigrationInterface {
-    name = 'MyMigration1696695844161'
-=======
-export class MyMigration1696665328813 implements MigrationInterface {
-    name = 'MyMigration1696665328813'
->>>>>>> 230ead74e0cdafad857d693935da5616cfb39ef6:backend/coursebe/src/migration/1696665328813-MyMigration.ts
+export class MyMigration1696700962224 implements MigrationInterface {
+    name = 'MyMigration1696700962224'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "products" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying, "price" integer, "category" character varying, "image" character varying, CONSTRAINT "PK_0806c755e0aca124e67c0cf6d7d" PRIMARY KEY ("id"))`);

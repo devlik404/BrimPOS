@@ -32,12 +32,12 @@ import {
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
   Product,
-//   deleteProduct,
+  // deleteProduct,
   getProduct,
   productSelector,
 } from "../../features/Product/poductSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt,FaPen } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ApiData } from "../../hooks/api";
 const IndexProduc = () => {
@@ -45,7 +45,7 @@ const IndexProduc = () => {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const [form, setForm] = useState<Product>({
-    id: 0,
+    id: "",
     name: "",
     category: "",
     price: 0,
@@ -92,15 +92,12 @@ const IndexProduc = () => {
       [name]: value,
     });
   }
-  
+
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
   console.log("product", products);
 
-  const handleDelete = (id: string) => {
-    console.log(id)
-  }
   return (
     <>
       <Box
@@ -247,58 +244,12 @@ const IndexProduc = () => {
                             <Td>{items.name}</Td>
                             <Td>{items.category}</Td>
                             <Td>{items.price}</Td>
-                            <Td onClick={() => handleDelete(items.id)}>
+                            <Td>
                               <FaTrashAlt />
                             </Td>
                             <Td>
-                              <Link to={`/product/${items.id}`}>edit </Link>
-                              {/* <Box>
-                                                            <Button onClick={onOpen} ><FaPen /></Button>
-                                                            <Modal
-                                                                initialFocusRef={initialRef}
-                                                                finalFocusRef={finalRef}
-                                                                isOpen={isOpen}
-                                                                onClose={onClose}
-                                                                size={'xl'}
-
-                                                            >
-                                                                <ModalOverlay />
-                                                                <form onSubmit={handleEdit}>
-                                                                    <ModalContent>
-                                                                        <ModalHeader>Create your account</ModalHeader>
-                                                                        <ModalCloseButton />
-                                                                        <ModalBody pb={6}>
-                                                                            <FormControl>
-                                                                                <FormLabel>Product Name</FormLabel>
-                                                                                <Input ref={initialRef} placeholder='Product Name'
-                                                                                    type='text' name='name' onChange={(e) => setName(e.target.value)} />
-                                                                            </FormControl>
-
-                                                                            <FormLabel mt={'20px'}>Category</FormLabel>
-                                                                            <Select onChange={(e) => setCategory(e.target.value)} name='category'>
-                                                                                <option value='' hidden >Options</option>
-                                                                                <option value='food'>Food</option>
-                                                                                <option value='beferages'>Beferages</option>
-                                                                            </Select>
-
-                                                                            <FormControl mt={'20px'}>
-                                                                                <FormLabel>price</FormLabel>
-                                                                                <Input placeholder='price' name='price' onChange={(e) => setPrice(e.target.value)} />
-                                                                            </FormControl>
-
-
-                                                                        </ModalBody>
-
-                                                                        <ModalFooter>
-                                                                            <Button colorScheme='blue' onClick={onClose} mr={3} type='submit'>
-                                                                                Save
-                                                                            </Button>
-                                                                            <Button onClick={onClose}>Cancel</Button>
-                                                                        </ModalFooter>
-                                                                    </ModalContent>
-                                                                </form>
-                                                            </Modal>
-                                                        </Box> */}
+                              <Link to={`/updateproduct/${items.id}`}><FaPen/> </Link>
+                              
                             </Td>
                           </Tr>
                         ))}

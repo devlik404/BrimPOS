@@ -1,86 +1,3 @@
-// import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { RootState } from "../../app/store";
-// import axios from "axios";
-
-// export interface Product {
-//   // id: string;
-//   name: string,
-//   price: string
-//   category: string
-// }
-// interface ProductState {
-//     loading: boolean;
-//     product: Product[]; // Tetapkan tipe data elemen array
-//     error: string | undefined;
-//   }
-  
-// const initialState: ProductState = {
-//   loading: false,
-//   product: [],
-//   error: undefined,
-// }
-// export const getProduct = createAsyncThunk("product/getUsers", async() => {
-//     try {
-//         const res = await axios.get('http://localhost:8000/product')
-//         console.table('getUsers',res.data)
-//         return res.data;
-//     } catch (error) {
-//         console.log('error bro ',error)
-//     }
-    
-//   }
-// )
-// export const fetchProduct = createAsyncThunk("product/fetchUsers", async(newProduct: Product) => {
-//     try {
-//         const res = await axios.post('http://localhost:8000/product', newProduct)
-//         console.table('fetchUsers',res.data)
-//         return res.data;
-//     } catch (error) {
-//         console.log('error bro ',error)
-//     }
-
-// }
-// )
-// const productSlice = createSlice({
-//   name: 'product',
-//   initialState,
-//   extraReducers: (builder) => {
-//     builder.addCase(getProduct.pending, (state) => {
-//       state.loading = true;
-//     });
-//     builder.addCase(getProduct.fulfilled, (state, action: PayloadAction<Array<Product>>) => {
-//       state.loading = false;
-//       state.product = action.payload;
-//     });
-//     builder.addCase(getProduct.rejected, (state, action) => {
-//       state.loading = false;
-//       state.product = [];
-//       state.error = action.error.message;
-//     });
-
-//     builder.addCase(fetchProduct.pending, (state) => {
-//       state.loading = true;
-//     });
-//     builder.addCase(fetchProduct.fulfilled, (state, action: PayloadAction<Array<Product>>) => {
-//       state.loading = false;
-//       state.product = action.payload;
-//     });
-//     builder.addCase(fetchProduct.rejected, (state, action) => {
-//       state.loading = false;
-//       state.product = [];
-//       state.error = action.error.message;
-//     });
-//   },
-//   reducers: {}
-// })
-// export const productSelector = (state: RootState) => state.productReducer;
-// export default productSlice.reducer;
-
-
-
-
-
-
 
 
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -90,7 +7,7 @@ import { ApiData } from "../../hooks/api";
 import axios from "axios";
 
 export interface Product {
-  id: number;
+  id: string;
   name: string;
   price: number;
   category: string;
@@ -109,7 +26,7 @@ const initialState: ProductState = {
   error: null,
 };
 
-export const getProduct = createAsyncThunk("product/getUsers", async() => {
+export const getProduct = createAsyncThunk("products/getProduct", async() => {
       try {
           const res = await ApiData.get('/product')
           console.table('getUsers',res.data)
@@ -118,6 +35,15 @@ export const getProduct = createAsyncThunk("product/getUsers", async() => {
           console.log('error bro ',error)
       }
     })
+    // export const getProductDetail = createAsyncThunk("products/getProductDetail", async(id: string) => {
+    //   try {
+    //       const res = await ApiData.get(`/product/${id}`)
+    //       console.table('getUsers',res.data)
+    //       return res.data;
+    //   } catch (error) {
+    //       console.log('error bro ',error)
+    //   }
+    // })
 
 export const fetchProduct = createAsyncThunk("product/fetchUsers", async(newProduct: Product) => {
     try {
@@ -167,6 +93,19 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || "Failed to fetch products.";
       })
+
+      // .addCase(getProductDetail.pending, (state) => {
+      //   state.loading = true;
+      //   state.error = null;
+      // })
+      // .addCase(getProductDetail.fulfilled, (state, action: PayloadAction<Product[]>) => {
+      //   state.loading = false;
+      //   state.products = action.payload;
+      // })
+      // .addCase(getProductDetail.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.error.message || "Failed to fetch products.";
+      // })
 
       .addCase(fetchProduct.pending, (state) => {
         state.loading = true;

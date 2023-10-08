@@ -1,122 +1,191 @@
-// import { FormEvent, useEffect, useState } from 'react'
-// import { Card, CardBody, Box, Button, FormLabel, Input, FormControl, Select, Stack, Heading, Center, Container } from '@chakra-ui/react'
-// import { editProduct, getProduct, productSelector } from '../../features/Product/poductSlice'
-// import { useAppDispatch, useAppSelector } from '../../app/hooks'
-// import { useNavigate, useParams } from 'react-router-dom';
-// import Layoute from '../../page/Layoute';
-// const ProductId = () => {
-
-//   const [name, setName] = useState<string>("");
-//   const [category, setCategory] = useState<string>("");
-//   const [price, setPrice] = useState<string>("");
-
-//   const { id } = useParams()
-//   const dispatch = useAppDispatch()
-//   console.log(id)
-//   const navigate = useNavigate()
-//   async function handleEdit(e: FormEvent<HTMLFormElement>) {
-//     e.preventDefault();
-//     try {
-//       const newProduct = {
-//         id: id,
-//         name: name,
-//         price: price,
-//         category: category,
-//       };
-//       console.log('EDIT', newProduct);
-//       await dispatch(editProduct(id, newProduct));
-
-//       await dispatch(getProduct());
-//       navigate('/product');
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-//   const { products } = useAppSelector(productSelector)
-//   useEffect(() => {
-//     dispatch(getProduct(id))
-//   })
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import {
+  Card,
+  CardBody,
+  Box,
+  Button,
+  FormLabel,
+  Input,
+  FormControl,
+  Select,
+  Stack,
+  Heading,
+  Center,
+  Container,
+} from '@chakra-ui/react';
+import {
+  Product,
+  getProduct,
+  // getProductDetail, 
+  productSelector
+} from '../../features/Product/poductSlice';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../app/hooks';
+import { useNavigate, useParams } from 'react-router-dom';
+import Layoute from '../../page/Layoute';
+import { ApiData } from '../../hooks/api';
+import { FcAddImage } from "react-icons/fc";
 
 
-//   return (
+const ProductId = () => {
+  const [form, setForm] = useState<Product>({
+    id: "",
+    name: "",
+    category: "",
+    price: 0,
+    image: "",
+  });
 
-//     <>
-//       <Container maxW='container.2xl' display={'flex'} justifyContent={'center'}>
-//         <Box display={'flex'} width={"1000px"} justifyContent={'space-between'}>
-//           <Box color={'black'} flex={'0,5'}  >
-//             <Layoute />
-//           </Box>
-//           <Box
-//             left={'300px'}
-//             // display={'flex'}
-//             width={"800px"}
-//             overflow='hidden' // Menyembunyikan scrollbar secara horizontal dan vertikal
-//           >
-//             <Box color={'black'} flex={'1'}></Box>
-//             <Box>
-//               <Center margin={'auto'} width={'900px'} marginTop={'40px'}>
-//                 <Box display={'flex'} justifyContent={'center'}>
-//                   <Card
-//                     direction={{ base: 'column', sm: 'row' }}
-//                     overflow='hidden'
-//                     variant='outline'
-//                   >
+  const { id } = useParams<{ id: string }>();
+  console.log(id);
 
+  const dispatch = useAppDispatch();
+  // dispatch(getProductDetail(id));
+  // const { product } = useAppSelector(productSelector);
+  const navigate = useNavigate();
 
-//                     <Stack width={'700px'}>
-//                       <CardBody>
-//                         <Heading size='md'>Edit Data</Heading>
-//                         <Box>
-//                           <form onSubmit={handleEdit}>
+  async function handleEdit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("name", form.name);
+      formData.append("price", form.price.toString());
+      formData.append("category", form.category);
+      formData.append("image", form.image as File);
+      console.log(formData);
+      const response = await ApiData.patch(`/updateproduct/${id}`, formData);
+      console.log(response)
+      console.log("response", response);
+      navigate('/product');
+      // await dispatch(getProduct());
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const { name, value, files } = event.target
 
+    if (files) {
+      setForm({
+        ...form,
+        [name]: files[0]
+      })
+    } else {
+      setForm({
+        ...form,
+        [name]: value
+      })
+    }
+  }
 
-//                             <FormControl>
-//                               <FormLabel>Product Name</FormLabel>
-//                               <Input placeholder='Product Name'
-//                                 type='text' defaultValue={} name='name' onChange={(e) => setName(e.target.value)} />
-//                             </FormControl>
+  function handleChangeSelect(event: ChangeEvent<HTMLSelectElement>) {
+    const { name, value } = event.target;
 
-//                             <FormLabel mt={'20px'}>Category</FormLabel>
-//                             <Select onChange={(e) => setCategory(e.target.value)} name='category'>
-//                               <option value='' hidden >Options</option>
-//                               <option value='food'>Food</option>
-//                               <option value='beferages'>Beferages</option>
-//                             </Select>
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  }
 
-//                             <FormControl mt={'20px'}>
-//                               <FormLabel>price</FormLabel>
-//                               <Input placeholder='price' name='price' onChange={(e) => setPrice(e.target.value)} />
-//                             </FormControl>
-//                             <FormControl mt={'20px'}>
-//                               <Button variant='solid' colorScheme='blue' type='submit'>
-//                                 Buy Latte
-//                               </Button>
-//                             </FormControl>
-//                           </form>
-//                         </Box>
-//                       </CardBody>
+  const { products } = useAppSelector(productSelector);
+  console.log('products', products);
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
 
+  // const product = products.find((product) => product.id === id);
 
-//                     </Stack>
-//                   </Card>
+  return (
+    <>
+      <Container maxW='container.2xl' display={'flex'} justifyContent={'center'}>
+        <Box display={'flex'} width={'1000px'} justifyContent={'space-between'}>
+          <Box color={'black'} flex={'0,5'}>
+            <Layoute />
+          </Box>
+          <Box left={'300px'} width={'800px'} overflow='hidden'>
+            <Box color={'black'} flex={'1'}></Box>
+            <Box>
+              <Center margin={'auto'} width={'900px'} marginTop={'40px'}>
+                <Box display={'flex'} justifyContent={'center'}>
+                  <Card direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline'>
+                    <Stack width={'700px'}>
+                      <CardBody>
+                        <Heading size='md'>Edit Data</Heading>
+                        <Box>
+                          <form onSubmit={handleEdit}>
+                            <FormControl mt={'20px'}>
+                              <FormLabel>Product Name</FormLabel>
+                              <Input hidden value={products[0].id} />
+                              <Input
+                                placeholder="Product Name"
+                                type="text"
+                                name="name"
+                                // defaultValue={products.name}
+                                onChange={handleChange}
+                              />
+                            </FormControl>
 
+                            <FormLabel mt={"20px"}>Category</FormLabel>
+                            <Select
+                              onChange={handleChangeSelect}
+                              name="category"
+                            // defaultValue={product.category}
+                            >
+                              <option value="" hidden>
+                                Options
+                              </option>
+                              <option value="makanan">Food</option>
+                              <option value="minuman">Beverage</option>
+                            </Select>
 
+                            <FormControl mt={"20px"}>
+                              <FormLabel>price</FormLabel>
+                              <Input
+                                type="number"
+                                placeholder="price"
+                                name="price"
+                                // defaultValue={product.price}
+                                onChange={handleChange}
+                              />
+                            </FormControl>
 
-
-//                 </Box>
-//               </Center>
-//             </Box>
-//             <Box flex={'0.5'}>
-//               <Box width={'300px'}>
-//                 {/* <Text>sdfsad</Text> */}
-//               </Box>
-//             </Box>
-//           </Box>
-//         </Box>
-//       </Container>
-//     </>
-
-//   )
-// }
-
-// export default ProductId
+                            <FormControl mt={"20px"}>
+                            <FormLabel ><FcAddImage style={{width: '60px', height: '60px'}}/></FormLabel>
+                              <Input
+                                placeholder="image"
+                                type="file"
+                                name="image"
+                                hidden
+                                height={'200px'}
+                                cursor={'pointer'}
+                                // defaultValue={product.image}
+                                onChange={handleChange} // Menggunakan setImage untuk mengatur state image
+                              />
+                            </FormControl>
+                            <FormControl mt={'20px'}>
+                              
+                              <Button variant='solid' colorScheme='blue' type='submit' >
+                                Save Changes
+                              </Button>
+                            </FormControl>
+                          </form>
+                        </Box>
+                      </CardBody>
+                    </Stack>
+                  </Card>
+                </Box>
+              </Center>
+            </Box>
+            <Box flex={'0.5'}>
+              <Box width={'300px'}>{/* <Text>sdfsad</Text> */}</Box>
+            </Box>
+          </Box>
+        </Box >
+      </Container >
+    </>
+  );
+};
+  
+export default ProductId;
