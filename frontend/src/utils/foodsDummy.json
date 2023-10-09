@@ -2,25 +2,33 @@
     {
        
           "id":1,
-          "imageProduct":"https://images.unsplash.com/photo-1504630083234-14187a9df0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+          "imageProduct":"https://images.unsplash.com/photo-1516684732162-798a0062be99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
           "nameProduct":"bubul cum cum",
           "priceProduct":"27k"
         
       },
       {
       
-          "id":1,
-          "imageProduct":"https://images.unsplash.com/photo-1504630083234-14187a9df0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
-          "nameProduct":"kentang",
+          "id":2,
+          "imageProduct":"https://images.unsplash.com/photo-1609167830220-7164aa360951?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+          "nameProduct":"bulger",
           "priceProduct":"22k"
         
       },
       {
       
-        "id":1,
-        "imageProduct":"https://images.unsplash.com/photo-1504630083234-14187a9df0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+        "id":3,
+        "imageProduct":"https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+        "nameProduct":"pitsa",
+        "priceProduct":"59k"
+      
+    },
+    {
+      
+        "id":4,
+        "imageProduct":"https://images.unsplash.com/photo-1639744090731-5ede3e272308?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2607&q=80",
         "nameProduct":"picang goyeng",
-        "priceProduct":"22k"
+        "priceProduct":"26k"
       
     }
 ]

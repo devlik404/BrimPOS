@@ -116,7 +116,9 @@ export default function Register() {
                         textShadow: "dark-lg",
                       }}
                     >
+                      <a href="/login">
                       Register Account
+                      </a>
                     </Button>
                     <Text textAlign={"end"} color={"white"}>
                       {" "}

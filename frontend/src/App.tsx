@@ -12,6 +12,7 @@ import Login from './page/Login'
 // import { RootState } from './types/types/rootState'
 // import { setAuthToken, ApiData } from './hooks/api'
 // import { AUTH_CHECK, AUTH_ERROR } from './types/rootReducer'
+import ProductId from './Component/productComponen/ProductId'
 
 // import ProductId from './Component/productComponen/ProductId'
 
@@ -68,7 +69,7 @@ function App() {
      
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/product" element={<Product/>} />
-        {/* <Route path="/login" element={<LoginForm />} /> */}
+        <Route path="/updateproduct/:id" element={<ProductId />} />
         <Route path="/payment" element={<UserPage/>} />
         <Route path="/operational" element={<Operational/>} />
         <Route path="/register" element={<Register/>} />
