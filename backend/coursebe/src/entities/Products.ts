@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { orders } from './Order';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Orders } from "./Order";
 
-@Entity({ name: 'products' })
+@Entity({ name: "products" })
 export class Products {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column({ nullable: true })
@@ -17,8 +17,7 @@ export class Products {
 
   @Column({ nullable: true })
   image: string;
-  
-  @OneToMany(() => orders, (order) => order.products)
-  orders: orders[];
 
+  @OneToMany(() => Orders, (order) => order.products)
+  orders: Orders[];
 }

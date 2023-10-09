@@ -86,12 +86,12 @@ function Login() {
             <FormControl>
               <FormLabel color={"white"}>Password</FormLabel>
               <InputGroup>
-              <Input type={active ? "password" : "text" } bg={"blackAlpha.600"}  name="password" color={"white"}/>
+              <Input type={active ? "text" : "password" } bg={"blackAlpha.600"}  name="password" color={"white"}/>
                 <InputRightElement h={'full'}>
                   <Button
                     bg={"transparent"}
                     onClick={handleActive}>
-                    {active ?  <ViewOffIcon color={"white"} /> : <ViewIcon color={"white"} /> }
+                    {active ?  <ViewIcon color={"white"} /> : <ViewOffIcon color={"white"} /> }
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -107,7 +107,9 @@ function Login() {
               }}
               
             >
+              <a href="/operational">
               Login Account
+              </a>
             </Button>
             <Text color={"white"} textAlign={'end'} >don't have account ? <a href="/register">register</a> </Text>
             

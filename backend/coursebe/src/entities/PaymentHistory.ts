@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
-import { orders } from './Order';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  OneToMany,
+} from "typeorm";
+import { Orders } from "./Order";
 
-@Entity({ name: 'payment_histories' })
+@Entity({ name: "payment_histories" })
 export class PaymentHistories {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column({ nullable: true })
@@ -11,11 +17,10 @@ export class PaymentHistories {
 
   @Column({ nullable: true })
   total: number;
-  
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+
+  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   date: Date;
-  
- 
-  @OneToMany(() => orders, (order) => order.paymentHistory)
-  orders: orders[];
+
+  @OneToMany(() => Orders, (order) => order.paymentHistory)
+  orders: Orders[];
 }
