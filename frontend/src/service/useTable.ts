@@ -3,7 +3,7 @@ import { ApiData } from "../hooks/api";
 import { Itable } from "../interface/Itable";
 
 export default function GetTables() {
-    const [tableData, setTableData] =useState<Itable[]>([]); 
+    const [tableData, setTableData] = useState<Itable[]>([]); 
   
     // Fungsi untuk mengambil data dari API
     const fetchData = async () => {
@@ -19,6 +19,6 @@ export default function GetTables() {
       }, []);
 
 
-    return {fetchData,tableData};
+    return {fetchData,tableData,setTableData};
 }
   

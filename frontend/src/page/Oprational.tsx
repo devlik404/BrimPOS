@@ -1,8 +1,6 @@
 import { FaBagShopping, FaCashRegister, FaWallet } from "react-icons/fa6";
 import { IoFastFood } from "react-icons/io5";
-import {
-  MdOutlineTableRestaurant,
-} from "react-icons/md";
+import { MdOutlineTableRestaurant } from "react-icons/md";
 import {
   Box,
   Text,
@@ -24,6 +22,15 @@ import {
   Tabs,
   InputLeftElement,
   Image,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import SearchProduct from "../assets/search.svg";
 import ReceiptSearch from "../assets/receipt-search.svg";
@@ -75,22 +82,14 @@ export default function Operational() {
   };
   const [name, setName] = useState("");
 
-  const [tableActive1, setTableAcive1] = useState(false);
- 
+  const [selectedTable, setSelectedTable] = useState(null);
 
-  // const [table, setTable] = useState("");
-
-  const {tableData} = GetTables();
-  console.log("table set",tableData)
-  const selectedChange = (table: SetStateAction<string>) => {
-    if (table === "1") {
-      setTableAcive1(true);
-      return setTableData(table);
-    } else if (table === "2") {
-      setTableAcive2(true);
-      return setTableData(table);
-    }
+  const selectTable = (tableId: SetStateAction<null>) => {
+    setSelectedTable(tableId);
   };
+  const { tableData, setTableData } = GetTables();
+  console.log("table set", tableData);
+
   const ifNotFound = (
     <Box marginTop={"70px"}>
       <Center>
@@ -108,7 +107,7 @@ export default function Operational() {
   );
 
   const dispatch = useAppDispatch();
-  const { products, error, loading } = useAppSelector(productSelector);
+  const { products } = useAppSelector(productSelector);
 
   useEffect(() => {
     dispatch(getProduct());
@@ -169,12 +168,7 @@ export default function Operational() {
                   </Tab>
                   <Tab fontSize={"22px"}>Table</Tab>
                 </TabList>
-                <TabIndicator
-                  mt="-1.5px"
-                  height="2px"
-                 
-                  borderRadius="1px"
-                />
+                <TabIndicator mt="-1.5px" height="2px" borderRadius="1px" />
                 <TabPanels>
                   <TabPanel>
                     <Tabs position="relative" variant="unstyled">
@@ -183,7 +177,7 @@ export default function Operational() {
                           <Tab
                             _selected={{
                               color: "white",
-                              
+
                               borderRadius: "5",
                             }}
                           >
@@ -192,7 +186,7 @@ export default function Operational() {
                           <Tab
                             _selected={{
                               color: "white",
-                          
+
                               borderRadius: "5",
                             }}
                           >
@@ -201,7 +195,7 @@ export default function Operational() {
                           <Tab
                             _selected={{
                               color: "white",
-                            
+
                               borderRadius: "5",
                             }}
                           >
@@ -214,7 +208,7 @@ export default function Operational() {
                         {/* ALL */}
                         <TabPanel>
                           <Center>
-                            <InputGroup  ms={"-5"} w={"50%"}>
+                            <InputGroup ms={"-5"} w={"50%"}>
                               <InputLeftElement pointerEvents="none">
                                 <Image src={SearchProduct} />
                               </InputLeftElement>
@@ -244,7 +238,6 @@ export default function Operational() {
                             >
                               {products.map((item) => (
                                 <Box
-                               
                                   height="150px"
                                   w={"180px"}
                                   borderRadius={"md"}
@@ -335,7 +328,6 @@ export default function Operational() {
                                   .filter((item) => item.category === "makanan")
                                   .map((item) => (
                                     <Box
-                                    
                                       height="150px"
                                       w={"180px"}
                                       borderRadius={"md"}
@@ -395,7 +387,7 @@ export default function Operational() {
                         {/* BEVERAGES */}
                         <TabPanel>
                           <Center>
-                            <InputGroup  ms={"-5"} w={"50%"}>
+                            <InputGroup ms={"-5"} w={"50%"}>
                               <InputLeftElement pointerEvents="none">
                                 <Image src={SearchProduct} />
                               </InputLeftElement>
@@ -426,58 +418,57 @@ export default function Operational() {
                                 products
                                   .filter((item) => item.category === "minuman")
                                   .map((item) => (
-                                <Box
-                              
-                                  height="150px"
-                                  w={"180px"}
-                                  borderRadius={"md"}
-                                  boxShadow={"md"}
-                                  key={item.id}
-                                  cursor={"pointer"}
-                                >
-                                  <Center>
                                     <Box
-                                      h={"100px"}
-                                      w={"170px"}
+                                      height="150px"
+                                      w={"180px"}
                                       borderRadius={"md"}
+                                      boxShadow={"md"}
+                                      key={item.id}
+                                      cursor={"pointer"}
                                     >
-                                      <Image
-                                        src={`${item.image}`}
-                                        sizes="full"
-                                        pt={1}
-                                        borderRadius={"md"}
-                                      ></Image>
-                                    </Box>
-                                  </Center>
+                                      <Center>
+                                        <Box
+                                          h={"100px"}
+                                          w={"170px"}
+                                          borderRadius={"md"}
+                                        >
+                                          <Image
+                                            src={`${item.image}`}
+                                            sizes="full"
+                                            pt={1}
+                                            borderRadius={"md"}
+                                          ></Image>
+                                        </Box>
+                                      </Center>
 
-                                  <Center>
-                                    <SimpleGrid
-                                      columns={2}
-                                      ms={2}
-                                      mt={5}
-                                      gap={20}
-                                    >
-                                      <Box
-                                        w={"140px"}
-                                        h={"26px"}
-                                        overflow={"hidden"}
-                                      >
-                                        {" "}
-                                        {item.name}{" "}
-                                      </Box>
-                                      <Box
-                                        w={"30px"}
-                                        h={"26px"}
-                                        overflow={"hidden"}
-                                        ms={3}
-                                      >
-                                        {" "}
-                                        {item.price}{" "}
-                                      </Box>
-                                    </SimpleGrid>
-                                  </Center>
-                                </Box>
-                              ))}
+                                      <Center>
+                                        <SimpleGrid
+                                          columns={2}
+                                          ms={2}
+                                          mt={5}
+                                          gap={20}
+                                        >
+                                          <Box
+                                            w={"140px"}
+                                            h={"26px"}
+                                            overflow={"hidden"}
+                                          >
+                                            {" "}
+                                            {item.name}{" "}
+                                          </Box>
+                                          <Box
+                                            w={"30px"}
+                                            h={"26px"}
+                                            overflow={"hidden"}
+                                            ms={3}
+                                          >
+                                            {" "}
+                                            {item.price}{" "}
+                                          </Box>
+                                        </SimpleGrid>
+                                      </Center>
+                                    </Box>
+                                  ))}
                             </SimpleGrid>
                           )}
                         </TabPanel>
@@ -486,51 +477,62 @@ export default function Operational() {
                     </Tabs>
                   </TabPanel>
                   <TabPanel>
-                  {tableData?.map((item,) => (
-              
                     <SimpleGrid columns={4} spacing={10}>
-                      {tableActive1 ? (
-                        <Button
-                        key={item.id}
-                          height="160px"
-                          w={"160px"}
-                          fontSize={"30px"}
-                          borderColor={"green"}
-                        >
-                          {item.tableName} <MdOutlineTableRestaurant size={"full"} />{" "}
-                        </Button>
-                        
-                      ) : (
-                        <Button
-                          height="160px"
-                          w={"160px"}
-                          onClick={() => selectedChange("1")}
-                          fontSize={"30px"}
-                          bg={"transparent"}
-                        >
-                          {item.tableName} <MdOutlineTableRestaurant size={"full"} />{" "}
-                        </Button>
-                      )}
-                      
+                      {tableData?.map((item) => (
+                        <>
+                          <Button
+                            key={item.id}
+                            w={"160px"}
+                            fontSize={"30px"}
+                            borderColor={
+                              selectedTable === item.id ? "green" : "initial"
+                            }
+                            bg={
+                              selectedTable === item.id
+                                ? "green"
+                                : "transparent"
+                            }
+                            onClick={() => setSelectedTable(item.tableName)}
+                          >
+                            {item.tableName}{" "}
+                            <MdOutlineTableRestaurant size={"full"} />
+                          </Button>
+                        </>
+                      ))}
                     </SimpleGrid>
-               
-))}
                   </TabPanel>
                 </TabPanels>
               </Tabs>
             </Flex>
           </Box>
-          <Box w={"20%"} h={"100vh"} boxShadow={"md"}>
+          <Box  h={"100vh"} boxShadow={"md"}>
             <Heading textAlign={"center"} mt={5}>
-              Table
+              Table{selectedTable}
             </Heading>
             <Center>
-              <Box w={"95%"} mt={5} lineHeight={"30px"}>
-                <Text>Table:  </Text>
-                <Text>Product name: {name} </Text>
-                <Text>Price:</Text>
-                <Text>Quantity:</Text>
-              </Box>
+              <TableContainer>
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Menu</Th>
+                      <Th>Qty</Th>
+                      <Th isNumeric>Price</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>inches</Td>
+                      <Td>millimetres (mm)</Td>
+                      <Td isNumeric>25.4</Td>
+                    </Tr>
+                  </Tbody>
+                  <Tfoot>
+                    <Tr>
+                      <Th isNumeric>Total:</Th>
+                    </Tr>
+                  </Tfoot>
+                </Table>
+              </TableContainer>
             </Center>
             <Center>
               <Box w={"95%"} mt={5} h={"100vh"}>
