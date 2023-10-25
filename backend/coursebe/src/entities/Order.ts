@@ -3,10 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  OneToMany,
 } from "typeorm";
-import { Products } from "./Products";
 import { Tables } from "./Table";
 import { PaymentHistories } from "./PaymentHistory";
+import { OrderDetail } from "./OrderDetail";
 
 @Entity({ name: "orders" })
 export class Orders {
@@ -19,8 +20,10 @@ export class Orders {
   @Column({ nullable: true })
   status: string;
 
-  @ManyToOne(() => Products, (products) => products.orders)
-  products: Products;
+ 
+@OneToMany(() => OrderDetail, (orders) => orders.order)
+OrderDetail: OrderDetail[];
+
 
   @ManyToOne(() => Tables, (table) => table.orders)
   table: Tables;

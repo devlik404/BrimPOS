@@ -15,8 +15,7 @@ const Layoute = () => {
           {/* SIDE BAR */}
           <Box w={"15%"} h={"100vh"} boxShadow={"md"}>
             <Heading textAlign={"center"} fontFamily={"serif"} mt={2}>
-              {" "}
-              Brim Shop{" "}
+             
             </Heading>
             <Box ms={5} mt={10} display={"flex"}>
               <List spacing={8} fontSize={"24px"}>

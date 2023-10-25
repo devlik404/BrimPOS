@@ -4,11 +4,11 @@ import { Orders } from "../entities/Order";
 import { AppDataSource } from "../data-source";
 import { PaymentHistories } from "../entities/PaymentHistory";
 
-class OrderService {
+class OrderDetailService {
   private readonly PaymentHistoriesRepository: Repository<PaymentHistories> =
     AppDataSource.getRepository(PaymentHistories);
-  private readonly OrderRepository: Repository<Orders> =
-    AppDataSource.getRepository(Orders);
+  private readonly OrderRepository: Repository<OrderDetailService> =
+    AppDataSource.getRepository(OrderDetailService);
 
   async create(req: Request, res: Response) {
     try {

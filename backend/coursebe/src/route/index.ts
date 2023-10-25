@@ -30,8 +30,13 @@ root.post("/addorder", OrderController.create);
 // root.delete("/deleteorder/:id", OrderController.delete);
 root.patch("/updateorder/:id", OrderController.patch);
 
+//order detail
+root.get("/order_detail", OrderController.find);
+root.post("/order_detail", OrderController.create);
+
 // table
 root.get("/table", TableController.find);
+root.post("/table", TableController.post);
 
 //payment
 root.post("/history",PaymentController.create);

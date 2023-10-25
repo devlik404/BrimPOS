@@ -98,9 +98,9 @@ const IndexProduc = () => {
   }, [dispatch]);
   console.log("product", products);
 
-  function handleDelete(id: string): void {
-    throw new Error("Function not implemented.");
-  }
+  // function handleDelete(id: string): void {
+  //   throw new Error("Function not implemented.");
+  // }
 
   return (
     <>

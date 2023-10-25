@@ -8,3 +8,12 @@ export interface Iproduct{
     category:string,
     image:string
 }
+
+
+export interface Iproductchange{
+  
+    name:string,
+    price:number,
+    qty:number
+}
+
