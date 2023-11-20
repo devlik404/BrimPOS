@@ -1,9 +1,0 @@
-
-# schema
-migration
-data-source.ts
-
-# local variables
-.env
-.env.*
-!.env.example
