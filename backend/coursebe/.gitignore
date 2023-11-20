@@ -6,8 +6,8 @@ tmp/
 temp/
 
 # schema
-src/migration/
-src/utils/data-source.ts
+src/migration
+utils/data-source.ts
 
 # local variables
 .env
