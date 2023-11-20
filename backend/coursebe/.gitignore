@@ -4,3 +4,12 @@ node_modules/
 build/
 tmp/
 temp/
+
+# schema
+migration/
+data-source.ts
+
+# local variables
+.env
+.env.*
+!.env.example

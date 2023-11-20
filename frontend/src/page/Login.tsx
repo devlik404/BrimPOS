@@ -62,7 +62,7 @@ function Login() {
           bgGradient="linear(to-r, gray, white)"
           bgClip="text"
         >
-            Welcome To
+            Welcome to
           {" "}
         </Heading>
         <Heading
@@ -70,7 +70,7 @@ function Login() {
           bgGradient="linear(to-l, white, #6C3428)"
           bgClip="text"
         >
-            Brim coffee
+            Brim Shop
           {" "}
         </Heading>
       </Flex>
